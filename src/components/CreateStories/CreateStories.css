@@ -1,0 +1,67 @@
+.create-stry-container .main-container-content {
+  padding: 0px;
+}
+.stry-header {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 8px 34px;
+  background-color: #ffffff;
+  gap: 5px;
+}
+.stry-footer {
+  height: 100px;
+  width: calc(100% - 58px);
+  background-color: #ffffff;
+  bottom: 0;
+  right: 0;
+  padding: 35px 29px;
+}
+.create-stry-container .main-container-content {
+  height: calc(100vh - 74px);
+}
+.stry-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.empty-card {
+  height: 102px;
+  width: 163px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+}
+.stry-content-frame{
+    background-color: #ffffff;
+    width: 792px;
+    height: 410px;
+    border-radius: 4px;
+    margin: auto;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+.stry-content {
+    height: calc(100vh - 400px);
+    overflow: auto;
+}
+.progress-bar{
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+
+}
+.progress-bar .ant-progress-bg{
+  height: 12px !important;
+  background-color:#eb1450;
+}
+.progress-bar .ant-progress-text{
+  font-weight: 600;
+  font-size: 14px;
+  color: #1f1f1f;
+}
+.progress-bar .ant-progress-outer{
+  height: 25px !important;
+}

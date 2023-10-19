@@ -1,0 +1,25 @@
+.main-container-content {
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 40px 35px;
+  height: calc(100vh - 154px);
+  overflow: auto;
+}
+.main-container-content-white {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 40px 35px;
+  height: calc(100vh - 154px);
+  overflow: auto;
+  border-left: 3px solid #f5f5f5;
+}
+
+.page-title-container {
+  color: #000;
+  font-family: Bubblegum Sans;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; /* 85.714% */
+  margin-bottom: 25px;
+}

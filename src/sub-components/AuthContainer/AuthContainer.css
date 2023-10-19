@@ -1,0 +1,48 @@
+.login-background {
+  position: relative;
+  height: 100vh;
+}
+.login-background::after {
+  background-color: #eb1551;
+  z-index: -1;
+  position: absolute;
+  content: "";
+  width: calc(100% - 70%);
+  height: 100%;
+  top: 0;
+  right: 0;
+}
+.login-form h2 {
+  font-size: 40px;
+  font-family: Bubblegum Sans;
+}
+.header {
+  padding: 17px 21px 0px 21px;
+}
+.auth-container {
+  width: calc(100% - 200px);
+  margin: auto;
+}
+.forgetBtn button {
+  border: none;
+  box-shadow: none;
+  color: #4285f4;
+  font-size: 16px;
+  padding: 0;
+}
+.forgetBtn {
+  text-align: end;
+}
+.auth-container .auth-container-row {
+  display: flex;
+  align-items: center;
+}
+.form-pos h2 {
+  margin-top: 0px;
+}
+.signup-name .ant-form-item {
+  width: calc(100%/2 - 5px);
+}
+.signup-margin .ant-form-item{
+  margin-bottom: 14px;
+}

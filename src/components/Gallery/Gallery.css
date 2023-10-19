@@ -1,0 +1,17 @@
+.story-cards .ant-row {
+  gap: 28px 0px;
+}
+
+.gallery-category-name {
+  margin-top: 40px;
+  margin-bottom: 12px;
+  margin-left: 5px;
+  color: var(--Dark-1, #504f54);
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  text-transform: uppercase;
+}

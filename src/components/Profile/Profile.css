@@ -1,0 +1,82 @@
+.profile-component h6 {
+  color: #eb1551;
+  font-family: Bubblegum Sans;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+.profile-component h3 {
+  color: #000;
+  font-family: Nunito;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  margin: 0;
+}
+.profile-form input {
+  height: 48px;
+  border-radius: 9px;
+  background: #f4f4f4;
+  color: #272b30;
+  font-weight: 600;
+  font-size: 15px;
+  border-color: transparent;
+  border: none !important;
+}
+.profile-form input:hover {
+  border-color: transparent;
+}
+.profile-form input:focus-visible {
+  border: transparent;
+}
+.profile-form .ant-select-selector {
+  border: transparent !important;
+  background: #f4f4f4 !important;
+}
+.profile-component .profile-form h6 {
+  color: #33383f;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  margin-bottom: 12px;
+}
+.profile-form {
+  display: flex;
+  gap: 25px;
+  align-items: start;
+  width: 100%;
+}
+.updated-profile-image img {
+  background-color: #ffbc99;
+  border-radius: 10px;
+}
+.updated-profile-image {
+  position: relative;
+  margin-top: 35px;
+}
+.updated-profile-image .edit-icon-pos {
+  position: absolute;
+  background: #fcfcfc;
+  border-radius: 50%;
+  padding: 3px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: -10px;
+  right: -10px;
+  cursor: pointer;
+  box-shadow: 0px 2.5px 10px 0px rgba(0, 0, 0, 0.25);
+}
+.updated-profile-image .edit-icon-pos img {
+  background-color: transparent;
+}
+.profile-component{
+  padding: 0 3%;
+}

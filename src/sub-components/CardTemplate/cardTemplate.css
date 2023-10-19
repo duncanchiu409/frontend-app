@@ -1,0 +1,27 @@
+.card-template {
+  width: 100%;
+  max-width: 246px;
+  height: 307px;
+  font-size: 12px;
+
+  border-radius: 11.37px;
+  font-weight: 500;
+  border: 0.775px solid #e4e4e4;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.card-template img {
+  width: 100%;
+}
+.card-content {
+  padding: 10px;
+  color: #000;
+}
+.card-template .date-title {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #555555;
+  font-weight: 400;
+}

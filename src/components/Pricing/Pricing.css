@@ -1,0 +1,80 @@
+.price-header {
+  background-color: #eb1551;
+  padding: 10px 30px;
+  color: #ffffff;
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+}
+.social-icons div {
+  background-color: #ffffff;
+  color: #eb1551;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.pricing-body {
+  background: #ffefe5;
+  padding: 72px 89px;
+  position: relative;
+  z-index: 1;
+}
+.pricing-switch p {
+  color: #777;
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+}
+.pricing-switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  padding-top: 22px;
+}
+.pricing-switch button{
+    background:  #eb1551 !important;
+}
+.pricing-body h6 {
+  color: #eb1551;
+  font-family: Bubblegum Sans;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+.pricing-body h3 {
+  color: #000;
+  font-family: Nunito;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  margin: 0;
+}
+.float-vector1{
+    position: absolute;
+    top: 62px;
+    left: 15%;
+    z-index: -1;
+}
+.float-vector2{
+    position: absolute;
+    top: 72px;
+    right: 5%;
+    z-index: -1;
+}
+.card-price-display{
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+}

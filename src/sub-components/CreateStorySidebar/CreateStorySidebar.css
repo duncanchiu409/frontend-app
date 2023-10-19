@@ -1,0 +1,43 @@
+.story-sidebar.ant-form label {
+  font-weight: 600;
+  font-size: 14px;
+  align-items: flex-start;
+}
+.story-form-detail {
+  font-size: 11px;
+  margin-bottom: 5px;
+  color: #6f767e;
+}
+.story-sidebar.ant-form .ant-form-item-label.ant-col {
+  padding-bottom: 0;
+}
+.story-sidebar.ant-form textarea {
+  color: #6f767e;
+}
+.story-sidebar.ant-form textarea:focus-visible {
+  outline: none;
+  border: 1px solid #adadad;
+}
+.story-sidebar.ant-form textarea.ant-input:hover {
+  border-color: #adadad !important;
+}
+.story-sidebar.ant-form .ant-select-selector {
+  border-color: #adadad !important;
+}
+.checkbox-image {
+  position: relative;
+}
+.checkedFilled {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.select-comic-style-image {
+  width: 80px;
+  object-fit: cover;
+  height: 80px;
+  border-radius: 10px;
+}
+

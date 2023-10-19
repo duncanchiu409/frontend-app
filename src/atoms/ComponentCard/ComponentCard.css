@@ -1,0 +1,39 @@
+.component-card-container {
+  border-radius: 10px;
+  border: 1px solid #eee;
+  background: #fff;
+  padding: 20px;
+}
+
+.component-card-title {
+  color: #1b1818;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px; /* 110% */
+}
+
+.component-card-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.component-card-btn{
+  color: #EB1551;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  cursor: pointer;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+.component-card-btn:hover{
+  color: #EB1551 !important;
+}
+.component-card-btn:focus-visible{
+  outline: none !important;
+}
