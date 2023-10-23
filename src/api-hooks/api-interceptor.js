@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: `https://app.chainofdemand.co/n/v1`,
+  baseURL: process.env.REACT_APP_API,
   headers: {
     "Content-Type": "application/json",
   },
