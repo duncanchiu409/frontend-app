@@ -66,7 +66,7 @@ const CreateStories = ({ type }) => {
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: "http://18.232.158.26:8089/book",
+        url: `${process.env.REACT_APP_PY_API}/book`,
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
@@ -93,7 +93,7 @@ const CreateStories = ({ type }) => {
       let getDataStatus = {
         method: "get",
         maxBodyLength: Infinity,
-        url: `http://18.232.158.26:8089/book?book_id=${storyId}`,
+        url: `${process.env.REACT_APP_PY_API}/book?book_id=${storyId}`,
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
