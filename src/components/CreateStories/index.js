@@ -10,6 +10,7 @@ import TabImg4 from "../../assets/svg-icons/tabImg4.svg";
 import { Progress, message } from "antd";
 import axios from "axios";
 import DownloadScreenImage from "../../assets/svg-icons/download-screen-image.svg";
+import { getUserInfoHook } from "../../api-hooks/user";
 
 const CreateStories = ({ type }) => {
   const [generateStry, setGenerateStry] = useState(false);
@@ -20,6 +21,18 @@ const CreateStories = ({ type }) => {
   const [storyId, setStoryId] = useState();
   const [downloadData, setDownloadData] = useState();
   const [isGenerateClicked, setIsGenerateClicked] = useState(false)
+
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    getUserInfoHook((response) => {
+
+      console.log("get User Data", response)
+      setUser(response)
+
+    })
+
+  }, [])
   const dummyTabList = [
     {
       id: 1,
@@ -55,9 +68,10 @@ const CreateStories = ({ type }) => {
   };
 
   const generateStory = (values) => {
-    console.log("printing the values", values);
+    console.log("printing the values", values, user?.id);
     if(!isGenerateClicked){
       values.age = Number(values.age);
+      values.customer_id = user?.id
       setProgressBarValue();
       setProgressStepText("")
       setDownloadLink("")

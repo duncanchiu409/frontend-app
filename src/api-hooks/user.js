@@ -41,7 +41,7 @@ export const getUserInfoHook = (callback) => {
   api
     .get("/users/me")
     .then(function (response) {
-      callback(response?.data?.data);
+      callback(response?.data);
     })
     .catch(function (error) {
       console.log(error);
