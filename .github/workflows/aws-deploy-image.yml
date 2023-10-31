@@ -1,0 +1,48 @@
+name: Docker Image CI
+
+on: 
+  push:
+    branches:
+      - "main"
+
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REGISTRY: 170454201860.dkr.ecr.us-east-1.amazonaws.com
+  ECR_REPO: ocp-ecr/frontend
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1-node16
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }} 
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }} 
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Login to AWS ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+    
+    - name: Build, Tag and Push Image to ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{steps.login-ecr.outputs.registry}}
+        IMAGE_TAG: ${{github.sha}}
+        LATEST_TAG: 'latest'
+      run: |
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG"
+        docker build -t $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG .
+        docker tag $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPO:$LATEST_TAG 
+        docker push $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPO:$LATEST_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG"
+    
