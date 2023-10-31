@@ -77,6 +77,7 @@ const CreateStories = ({ type }) => {
       setDownloadLink("")
       setDownloadData()
       setIsGenerateClicked(true)
+      const token = localStorage.getItem("authToken");
       let config = {
         method: "post",
         maxBodyLength: Infinity,
@@ -84,6 +85,7 @@ const CreateStories = ({ type }) => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          Authorization: `Bearer ${token}`
         },
         data: values,
       };
@@ -104,6 +106,7 @@ const CreateStories = ({ type }) => {
 
   const getCalculatedProgressData = (storyId) => {
     if (storyId) {
+      const token = localStorage.getItem("authToken");
       let getDataStatus = {
         method: "get",
         maxBodyLength: Infinity,
@@ -111,6 +114,7 @@ const CreateStories = ({ type }) => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          Authorization: `Bearer ${token}`
         },
       };
       axios
