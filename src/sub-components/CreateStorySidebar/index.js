@@ -7,6 +7,9 @@ import SelectSample1 from "../../assets/papercut.png";
 import SelectSample2 from "../../assets/cartoon.png";
 import SelectSample3 from "../../assets/anime.png";
 import SelectSample4 from "../../assets/lego.png";
+import SelectSample5 from '../../assets/pixar.png'
+import SelectSample6 from '../../assets/comic.webp'
+import SelectSample7 from '../../assets/pop-art.webp'
 import { CheckCircleFilled } from "@ant-design/icons";
 
 const CreateStorySidebar = (props) => {
@@ -38,6 +41,24 @@ const CreateStorySidebar = (props) => {
       imageSrc: SelectSample4,
       isChecked: false,
     },
+    {
+      id: 5,
+      name: "Pixar",
+      imageSrc: SelectSample5,
+      isChecked: false,
+    },
+    {
+      id: 6,
+      name: "Comic",
+      imageSrc: SelectSample6,
+      isChecked: false,
+    },
+    {
+      id: 7,
+      name: "Pop Art",
+      imageSrc: SelectSample7,
+      isChecked: false,
+    }
   ];
   const [checkedData, setIsCheckedData] = useState(dummyCheckboxList);
   const [checkedSelected,setCheckedSelected] = useState("Paper cut");
@@ -56,11 +77,7 @@ const CreateStorySidebar = (props) => {
     {
       label: "Female",
       value: "Female",
-    },
-    {
-      label: "Other",
-      value: "Other",
-    },
+    }
   ];
   const dummyActivityList = [
     {
@@ -137,13 +154,12 @@ const CreateStorySidebar = (props) => {
       style={{ maxWidth: "340px" }}
       className="story-sidebar"
     >
+      <div className="story-sidebar-heading">YOUR CHARACTER</div>
       <Form.Item
         label={
-          <div>
-            Name of your child
-            <div className="story-form-detail">
-              Name will make comic persnalised
-            </div>
+          <div className="story-form-title">
+            Name
+           
           </div>
         }
         name="name"
@@ -165,11 +181,9 @@ const CreateStorySidebar = (props) => {
       </Form.Item>
       <Form.Item
         label={
-          <div>
-            Age of your child
-            <div className="story-form-detail">
-              Age will make comic persnalised
-            </div>
+          <div className="story-form-title">
+            Age
+            
           </div>
         }
         name="age"
@@ -193,9 +207,9 @@ const CreateStorySidebar = (props) => {
       </Form.Item>
       <Form.Item
         label={
-          <div>
+          <div className="story-form-title">
             Gender{" "}
-            <div className="story-form-detail">Please Select the gender</div>
+           
           </div>
         }
         name="gender"
@@ -218,12 +232,135 @@ const CreateStorySidebar = (props) => {
           }}
         />
       </Form.Item>
+     
+      <Form.Item label={<div className="story-form-title">Ethnicity</div>} name="race" rules={[
+          {
+            required: true,
+            message: "Please Enter Race!",
+          },
+        ]}>
+
+<ComponentInput
+          placeholder="Asian"
+          style={{
+            height: "48px",
+            borderRadius: "9px",
+            width: "340px",
+          }}
+        />
+       
+      </Form.Item>
       <Form.Item
         label={
-          <div>
-            Lesson/Moral of comic{" "}
+          <div style={{marginLeft:"5px"}}>
+            Appearance
             <div className="story-form-detail">
-              How you want your child to get inspired
+            Describe your character with 2-3 defining features​
+            </div>
+          </div>
+        }
+        name="appearance"
+       
+      >
+        <Input.TextArea
+          placeholder="short curly brown hair, blue eyes, black round glasses"
+          style={{
+            height: "120px",
+            borderRadius: "9px",
+            width: "340px",
+            resize: "none",
+          }}
+        />
+      </Form.Item>
+      
+      <Form.Item label={<div className="story-form-title" style={{marginLeft:"5px"}}>
+           Interests{" "}
+            
+          </div>} name="other_details" 
+        >
+       
+        {/* <Select
+          mode="multiple"
+          allowClear
+          placeholder="Please select"
+          onChange={handleChange}
+          options={interestList}
+          style={{
+            height: "48px",
+            borderRadius: "9px",
+            width: "340px",
+          }}
+        /> */}
+         <ComponentInput
+          placeholder="Loves basketball"
+          style={{
+            height: "48px",
+            borderRadius: "9px",
+            width: "340px",
+          }}
+        />
+      </Form.Item>
+      {/* <Form.Item
+        label={
+          <div>
+            Recent Activities{" "}
+            <div className="story-form-detail">
+              What your child like to play/study/eat etc..
+            </div>
+          </div>
+        }
+        name="recent_activities"
+        rules={[
+          {
+            required: true,
+            message: "Please Select Recent Activity!",
+          },
+        ]}
+      >
+        <Select
+          mode="multiple"
+          allowClear
+          placeholder="Please select"
+          // onChange={handleChange}
+          options={dummyActivityList}
+          style={{
+            height: "48px",
+            borderRadius: "9px",
+            width: "340px",
+          }}
+        />
+      </Form.Item> */}
+      <Form.Item
+        label={
+          <div className="story-form-title">
+            Hometown
+           
+          </div>
+        }
+        name="location"
+        rules={[
+          {
+            required: true,
+            message: "Please Select Hometown!",
+          },
+        ]}
+      >
+          <ComponentInput
+          placeholder="Hong Kong"
+          style={{
+            height: "48px",
+            borderRadius: "9px",
+            width: "340px",
+          }}
+        />
+      </Form.Item>
+      <div className="story-sidebar-heading">Your Story</div>
+      <Form.Item
+        label={
+          <div >
+            Moral of the story/Lesson to learn
+            <div className="story-form-detail">
+            What’s the moral of your story?
             </div>
           </div>
         }
@@ -236,7 +373,7 @@ const CreateStorySidebar = (props) => {
         ]}
       >
         <Input.TextArea
-          placeholder="Moral"
+          placeholder="the importance of teamwork or not being wasteful."
           style={{
             height: "120px",
             borderRadius: "9px",
@@ -245,38 +382,16 @@ const CreateStorySidebar = (props) => {
           }}
         />
       </Form.Item>
-      <Form.Item label={<div>Race <div className="story-form-detail">
-          What your child like to play/study/eat etc..
-        </div></div>} name="race" rules={[
-          {
-            required: true,
-            message: "Please Enter Race!",
-          },
-        ]}>
-       
-        <Select
-          // mode="multiple"
-          allowClear
-          placeholder="Please select"
-          // onChange={handleChange}
-          options={dummyList}
-          style={{
-            height: "48px",
-            borderRadius: "9px",
-            width: "340px",
-          }}
-        />
-      </Form.Item>
       <Form.Item
         label={
-          <div>
-            Comic Style
-            <div className="story-form-detail">Specific illustration style</div>
+          <div className="story-form-title">
+            Illustration style
+            
           </div>
         }
         name="comic_style"
       >
-        <div style={{ display: "flex", gap: "12px" }}>
+        <div style={{ display: "flex", gap: "12px", overflowX:"auto" }}>
           {checkedData.map((item) => {
             return (
               <div
@@ -309,91 +424,6 @@ const CreateStorySidebar = (props) => {
             );
           })}
         </div>
-      </Form.Item>
-      <Form.Item label={<div>
-           Interests{" "}
-            <div className="story-form-detail">
-              What your child like to play/study/eat etc..
-            </div>
-          </div>} name="other_details" rules={[
-          {
-            required: true,
-            message: "Please Select Your Interest!",
-          },
-        ]}>
-       
-        <Select
-          mode="multiple"
-          allowClear
-          placeholder="Please select"
-          onChange={handleChange}
-          options={interestList}
-          style={{
-            height: "48px",
-            borderRadius: "9px",
-            width: "340px",
-          }}
-        />
-      </Form.Item>
-      <Form.Item
-        label={
-          <div>
-            Recent Activities{" "}
-            <div className="story-form-detail">
-              What your child like to play/study/eat etc..
-            </div>
-          </div>
-        }
-        name="recent_activities"
-        rules={[
-          {
-            required: true,
-            message: "Please Select Recent Activity!",
-          },
-        ]}
-      >
-        <Select
-          mode="multiple"
-          allowClear
-          placeholder="Please select"
-          // onChange={handleChange}
-          options={dummyActivityList}
-          style={{
-            height: "48px",
-            borderRadius: "9px",
-            width: "340px",
-          }}
-        />
-      </Form.Item>
-      <Form.Item
-        label={
-          <div>
-            Location
-            <div className="story-form-detail">
-              What your child like to play/study/eat etc..
-            </div>
-          </div>
-        }
-        name="location"
-        rules={[
-          {
-            required: true,
-            message: "Please Select Location!",
-          },
-        ]}
-      >
-        <Select
-          // mode="multiple"
-          allowClear
-          placeholder="Please select"
-          // onChange={handleChange}
-          options={dummyLocationList}
-          style={{
-            height: "48px",
-            borderRadius: "9px",
-            width: "340px",
-          }}
-        />
       </Form.Item>
       <Form.Item>
         <ComponentButton

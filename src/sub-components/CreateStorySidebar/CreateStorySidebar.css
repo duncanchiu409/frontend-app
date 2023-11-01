@@ -3,6 +3,10 @@
   font-size: 14px;
   align-items: flex-start;
 }
+
+.story-form-title{
+  margin-bottom: 5px;
+}
 .story-form-detail {
   font-size: 11px;
   margin-bottom: 5px;
@@ -39,5 +43,18 @@
   object-fit: cover;
   height: 80px;
   border-radius: 10px;
+}
+
+.story-sidebar-heading {
+color: #AAA;
+font-family: Inter;
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: 24px;
+letter-spacing: -0.12px;
+text-transform: uppercase;
+margin-bottom: 5px;
+margin-left: 8px;
 }
 
