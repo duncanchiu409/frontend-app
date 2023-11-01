@@ -59,7 +59,7 @@ const Sidebar = (props) => {
               <img src={MyStoriesIcon} alt="my-stories" />
               <span>My Stories</span>
             </div>
-            <div
+            {/* <div
               className="sidebar-item"
               style={getIsSelectedStyle(GALLERY_URL)}
               onClick={() => {
@@ -68,7 +68,7 @@ const Sidebar = (props) => {
             >
               <img src={GalleryIcon} alt="gallery-icon" />
               <span>Gallery</span>
-            </div>
+            </div> */}
             <Divider style={{ marginTop: "0", marginBottom: "5px" }} />
             <div
               className="sidebar-item"

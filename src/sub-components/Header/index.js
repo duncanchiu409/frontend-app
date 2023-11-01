@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ReactComponent as OcLogo } from "../../assets/svg-icons/transparentLogo.svg";
 import { ReactComponent as Notification } from "../../assets/svg-icons/Notification.svg";
 import Profile from "../../assets/svg-icons/Profile.svg";
@@ -17,9 +17,11 @@ import { useNavigate } from "react-router";
 import { Popover } from "antd";
 import ComponentButton from "../../atoms/ComponentButton";
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import { getUserInfoHook } from "../../api-hooks/user";
 
 const Header = () => {
   const router = useRouter();
+  const [user, setUser] = useState(null)
   const { pathname } = router;
   const navigate = useNavigate();
   const onLogout = () => {
@@ -53,6 +55,33 @@ const Header = () => {
       </div>
     </div>
   );
+
+  useEffect(() => {
+    getUserInfoHook((response) => {
+      setUser(response)
+    })
+
+  }, [])
+
+  const getAvatarInitials = () => {
+    if (user?.id) {
+      const nameSplit = user?.name.split(" ");
+      let initials;
+      const firstName = nameSplit[0];
+      if (firstName) {
+        initials = firstName?.[0]?.toUpperCase();
+      }
+      let lastName;
+      if (nameSplit?.length > 1) {
+        lastName = nameSplit[1];
+      }
+      if (lastName) {
+        initials = `${initials}${lastName?.[0]?.toUpperCase()}`;
+      }
+      console.log("First anem", firstName, lastName);
+      return initials;
+    }
+  };
   return (
     <div className="header-container">
       <div className="header-logo">
@@ -108,7 +137,11 @@ const Header = () => {
       <div className="header-components">
         <Notification style={{ cursor: "pointer" }} />
         <Popover content={content} title="" trigger="click">
-          <img src={Profile} style={{ cursor: "pointer" }} />
+        <div className="edit-profile-image-container">
+           {getAvatarInitials() }
+         
+        </div>
+          {/* <img src={Profile} style={{ cursor: "pointer" }} /> */}
         </Popover>
       </div>
     </div>

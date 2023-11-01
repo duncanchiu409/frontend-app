@@ -64,3 +64,41 @@ export const getUserInfoHook = (callback) => {
   //       callback(error);
   //     });
 };
+
+
+export const updateUserHook = (values, callback) => {
+  const data = JSON.stringify({
+    email: values?.email,
+    firstName: values.firstName,
+    lastName: values?.lastName,
+    country: values?.country,
+    phoneNumber: values?.phoneNumber
+  });
+  api
+    .put("/users/update", data)
+    .then(function (response) {
+      callback(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+      callback(error);
+    });
+}
+
+
+export const updatePasswordHook = (values, callback) => {
+  const data = JSON.stringify({
+    userId: values?.userId,
+    password: values.password,
+    confirmPassword: values?.confirmPassword
+  });
+  api
+    .post("/users/update-password", data)
+    .then(function (response) {
+      callback(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+      callback(error);
+    });
+}

@@ -1,18 +1,20 @@
-import { Col, Form, Row, Select } from "antd";
+import { Col, Form, Row, Select, notification } from "antd";
 import "./Profile.css";
 import ComponentInput from "../../atoms/ComponentInput";
 import ComponentButton from "../../atoms/ComponentButton";
 import ProfileUpdate from "../../assets/svg-icons/profile-update.svg";
 import EditIcon from "../../assets/svg-icons/edit-icon.svg";
 import MainContainer from "../../sub-components/MainContainer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UpdatePasswordModal from "../../sub-components/UpdatePasswordModal";
+import { getUserInfoHook, updatePasswordHook, updateUserHook } from "../../api-hooks/user";
 
 const Profile = () => {
   const [updatePasswordModal, setUpdatePasswordModal] = useState(false);
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
-  };
+  const [api, contextHolder] = notification.useNotification();
+  const [form] = Form.useForm();
+  const [user, setUser] = useState(null)
+ 
 
   const dummyList = [
     {
@@ -26,6 +28,41 @@ const Profile = () => {
       value: "address",
     },
   ];
+
+  const openNotificationWithIcon = (type) => {
+    notification.success({
+      message: 'Profile Updated Successfully!',
+    })
+    // api[type]({
+    //   message: 'Profile Updated Successfully!',
+    // });
+  };
+
+  useEffect(() => {
+    getUserInfoHook((response) => {
+      setUser(response)
+      console.log("User Response", response)
+      // form.setFieldValue("name", response?.name)
+     form.setFieldsValue({
+      firstName: response?.firstName,
+      lastName: response?.lastName,
+      email: response?.email,
+      phoneNumber: response?.phoneNumber,
+      country: response?.country
+     })
+
+    })
+  }, [])
+
+  const onFinish = (values) => {
+    console.log("Profile Values", values)
+    updateUserHook(values, (response) => {
+      console.log("Profile User Sucessfully!", response);
+      openNotificationWithIcon("success")
+
+    })
+
+  }
   return (
     <>
       <MainContainer>
@@ -33,16 +70,18 @@ const Profile = () => {
           <h6>Profile</h6>
           <h3>Edit your profile</h3>
           <div className="profile-form" style={{ marginTop: "32px" }}>
-            <Form style={{ maxWidth: "calc(100% - 220px)", width: "100%" }}>
+            <Form style={{ maxWidth: "calc(100% - 220px)", width: "100%" }} form={form} onFinish={onFinish}>
               <h6>BASIC DETAILS</h6>
               <Row gutter={16}>
                 <Col span={12}>
-                  <Form.Item>
-                    <ComponentInput placeholder="Martin" value={"Martin"} />
+                  <Form.Item name="firstName">
+                    <ComponentInput placeholder="Martin"  style={{
+                    width: "100%",
+                  }}/>
                   </Form.Item>
                 </Col>
                 <Col span={12}>
-                  <Form.Item>
+                  <Form.Item name="lastName">
                     <ComponentInput
                       placeholder="Schleifer"
                       value={"Schleifer"}
@@ -50,7 +89,7 @@ const Profile = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              <Form.Item>
+              <Form.Item name="email">
                 <ComponentInput
                   placeholder="martinschleifer@gmail.com"
                   value={"martinschleifer@gmail.com"}
@@ -62,20 +101,20 @@ const Profile = () => {
               </Form.Item>
               <Row gutter={16}>
                 <Col span={12}>
-                  <Form.Item>
+                  <Form.Item name="phoneNumber">
                     <ComponentInput
                       placeholder="+1 414 567 8764"
-                      value={"+1 414 567 8764"}
+                     
                       rules={[{ type: "number" }]}
                     />
                   </Form.Item>
                 </Col>
                 <Col span={12}>
-                  <Form.Item>
+                  <Form.Item name="country"> 
                     <Select
                       allowClear
                       placeholder="Select Location"
-                      onChange={handleChange}
+                  
                       options={dummyList}
                       style={{
                         height: "48px",
@@ -89,7 +128,7 @@ const Profile = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              <Form.Item>
+              {/* <Form.Item>
                 <Select
                   allowClear
                   placeholder="Address"
@@ -104,7 +143,7 @@ const Profile = () => {
                     fontSize: "15px",
                   }}
                 />
-              </Form.Item>
+              </Form.Item> */}
               <div
                 style={{
                   display: "flex",
@@ -141,19 +180,13 @@ const Profile = () => {
                       backgroundColor: "#2A85FF",
                       color: "#FFFFFF",
                     }}
-                    onClick={() => {
-                      console.log("");
-                    }}
+                    htmlType="submit"
+                   
                   />
                 </Form.Item>
               </div>
             </Form>
-            <div className="updated-profile-image">
-              <img src={ProfileUpdate} alt="profile-update" />
-              <div className="edit-icon-pos">
-                <img src={EditIcon} alt="edit icon" />
-              </div>
-            </div>
+            
           </div>
         </div>
       </MainContainer>
@@ -162,8 +195,23 @@ const Profile = () => {
           open={updatePasswordModal}
           handleClose={() => setUpdatePasswordModal(false)}
           title={"Update Password"}
-          onFinish={() => {
-            console.log("");
+         
+          onFinish={(values) => {
+         
+            if(values?.password && values?.confirmPassword && user?.id){
+              console.log("Password Values", values, user?.id);
+              updatePasswordHook({
+                ...values,
+                userId: user?.id
+              }, (response) => {
+                console.log("Password Updated Successfully!", response);
+                notification.success({
+                  message:"Password Updated Successfully!"
+                })
+                setUpdatePasswordModal(false)
+              })
+            }
+
           }}
         />
       )}

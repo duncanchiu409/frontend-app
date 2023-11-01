@@ -21,6 +21,7 @@ const UpdatePasswordModal = ({ open, handleClose, title, onFinish }) => {
               message: "Please Enter your Password",
             },
           ]}
+          name="password"
         >
           <Input.Password
             placeholder="Password"
@@ -38,6 +39,7 @@ const UpdatePasswordModal = ({ open, handleClose, title, onFinish }) => {
               message: "Please Confirm your Password",
             },
           ]}
+          name="confirmPassword"
         >
           <Input.Password
             placeholder="Confirm Password"
@@ -59,6 +61,7 @@ const UpdatePasswordModal = ({ open, handleClose, title, onFinish }) => {
               color:'#ffffff'
             }}
             type="submit"
+            htmlType="submit"
             // onClick={onFinish}
           />
         </Form.Item>
