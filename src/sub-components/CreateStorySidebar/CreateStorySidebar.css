@@ -39,9 +39,9 @@
 }
 
 .select-comic-style-image {
-  width: 80px;
+  width: 160px;
   object-fit: cover;
-  height: 80px;
+  height: 160px;
   border-radius: 10px;
 }
 
@@ -56,5 +56,55 @@ letter-spacing: -0.12px;
 text-transform: uppercase;
 margin-bottom: 5px;
 margin-left: 8px;
+}
+
+.ant-form-item .ant-form-item-label >label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::after {
+  display: inline-block;
+  margin-inline-end: 4px;
+  color: #ff4d4f;
+  font-size: 14px;
+  font-family: SimSun,sans-serif;
+  line-height: 1;
+  content: "*";
+  visibility: visible !important;
+}
+
+
+.ant-form-item .ant-form-item-label >label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  display: inline-block;
+  margin-inline-end: 0px;
+  color: #ff4d4f;
+  font-size: 14px;
+  font-family: SimSun,sans-serif;
+  line-height: 1;
+  content: "*";
+  visibility: hidden;
+}
+
+.ant-form-item .ant-form-item-label >label::after{
+  margin-inline-start: 0
+}
+
+.story-check-illustration-style{
+  position: absolute;
+  height: 160px;
+  width: 100%;
+  top: 0px;
+  border-radius: 10px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 100%);
+}
+
+.story-age-label-required{
+  position: relative;
+  display: inline-block;
+  margin-inline-end: 4px;
+  color: #ff4d4f;
+  font-size: 14px;
+  font-family: SimSun,sans-serif;
+  line-height: 1;
+  content: "*";
+  visibility: visible !important;
+  margin-left: -3px;
+  bottom: 4px;
 }
 

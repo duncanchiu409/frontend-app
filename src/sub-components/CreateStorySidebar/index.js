@@ -1,4 +1,4 @@
-import { Form, Input, Select } from "antd";
+import { Col, Form, Input, Row, Select } from "antd";
 import React, { useState } from "react";
 import ComponentInput from "../../atoms/ComponentInput";
 import "./CreateStorySidebar.css";
@@ -35,12 +35,12 @@ const CreateStorySidebar = (props) => {
       imageSrc: SelectSample3,
       isChecked: false,
     },
-    {
-      id: 4,
-      name: "Lego",
-      imageSrc: SelectSample4,
-      isChecked: false,
-    },
+    // {
+    //   id: 4,
+    //   name: "Lego",
+    //   imageSrc: SelectSample4,
+    //   isChecked: false,
+    // },
     {
       id: 5,
       name: "Pixar",
@@ -141,16 +141,20 @@ const CreateStorySidebar = (props) => {
   const getValues = (values) => {
     let storyValues = values;
     storyValues.comic_style = checkedSelected;
+
+    console.log("Story Values", storyValues)
     props.onClick(storyValues);
 
   };
+
+  const style = { background: '#0092ff', padding: '8px 0' };
   return (
     <Form
       onFinish={getValues}
       // onFinish={props.onClick}
       autoComplete="off"
       layout="vertical"
-      initialValues={{ remember: true }}
+      initialValues={{ remember: true, comic_style: "test" }}
       style={{ maxWidth: "340px" }}
       className="story-sidebar"
     >
@@ -181,20 +185,50 @@ const CreateStorySidebar = (props) => {
       </Form.Item>
       <Form.Item
         label={
-          <div className="story-form-title">
-            Age
-            
+          <div style={{marginLeft:"5px"}}>
+            Age <span className="story-age-label-required">*</span>
+            <div className="story-form-detail">
+            Between 1 to 12
+            </div>
           </div>
         }
         name="age"
         rules={[
+          // {
+          //   required: true,
+          //   message: "Please Enter the Age!",
+           
+          // },
           {
-            required: true,
-            message: "Please Enter the Age!",
+            min: 1,
+            message: "Age should be between 1 to 12",
           },
+          {
+            max: 12,
+            message: "Age should be between 1 to 12",
+          },
+          ({ getFieldValue }) => ({
+            validator(rule, value) {
+              // from 'getFieldValue("fieldName")' we can get the current value of that field.
+              if(value){
+                if ( value < 1 || value > 12 && value) {
+                  // value = currentValue of this field. with that we can do validations with other values in form fields
+                  return Promise.reject("Age should be between 1 to 12"); // The validator should always return a promise on both success and error
+                }  else {
+                  return Promise.resolve();
+                }
+              } else {
+                return Promise.reject("Please Enter the Age!");
+              }
+              
+            }
+          })
         ]}
+     
+        
         type="number"
       >
+        
         <ComponentInput
           placeholder="Enter Age"
           style={{
@@ -203,13 +237,15 @@ const CreateStorySidebar = (props) => {
             width: "340px",
           }}
           type="number"
+          min={1}
+          max={12}
         />
       </Form.Item>
       <Form.Item
         label={
           <div className="story-form-title">
             Gender{" "}
-           
+           <div></div>
           </div>
         }
         name="gender"
@@ -263,18 +299,24 @@ const CreateStorySidebar = (props) => {
        
       >
         <Input.TextArea
-          placeholder="short curly brown hair, blue eyes, black round glasses"
+          placeholder="Short curly brown hair, blue eyes, black round glasses"
           style={{
-            height: "120px",
+            // height: "120px",
             borderRadius: "9px",
             width: "340px",
             resize: "none",
+            border: "1px solid #ADADAD",
+            color:"#6F767E"
           }}
+          rows={3}
         />
       </Form.Item>
       
-      <Form.Item label={<div className="story-form-title" style={{marginLeft:"5px"}}>
-           Interests{" "}
+      <Form.Item label={<div style={{marginLeft:"5px"}}>
+      Main Interest{" "}
+      <div className="story-form-detail">
+      What does your character love doing most?
+            </div>
             
           </div>} name="other_details" 
         >
@@ -292,7 +334,7 @@ const CreateStorySidebar = (props) => {
           }}
         /> */}
          <ComponentInput
-          placeholder="Loves basketball"
+          placeholder="Basketball"
           style={{
             height: "48px",
             borderRadius: "9px",
@@ -345,6 +387,20 @@ const CreateStorySidebar = (props) => {
           },
         ]}
       >
+
+{/* <Select
+          allowClear
+          placeholder="Hong Kong"
+          // onChange={handleChange}
+          options={dummyLocationList}
+          style={{
+            height: "48px",
+            borderRadius: "9px",
+            width: "340px",
+          }}
+          showSearch
+        /> */}
+
           <ComponentInput
           placeholder="Hong Kong"
           style={{
@@ -373,13 +429,16 @@ const CreateStorySidebar = (props) => {
         ]}
       >
         <Input.TextArea
-          placeholder="the importance of teamwork or not being wasteful."
+          placeholder="The importance of teamwork or not being wasteful."
           style={{
-            height: "120px",
+            // height: "120px",
             borderRadius: "9px",
             width: "340px",
             resize: "none",
+            border: "1px solid #ADADAD",
+            color:"#6F767E"
           }}
+          rows={3}
         />
       </Form.Item>
       <Form.Item
@@ -390,11 +449,24 @@ const CreateStorySidebar = (props) => {
           </div>
         }
         name="comic_style"
+        rules={[
+          {
+            required: true,
+            message: "Please Select Illustration!",
+          },
+        ]}
+        
       >
-        <div style={{ display: "flex", gap: "12px", overflowX:"auto" }}>
+     
+            
+     
+  
+        {/* <div style={{ display: "flex", gap: "12px", overflowX:"auto" }}> */}
+        <Row gutter={[16, 24]}>
           {checkedData.map((item) => {
             return (
-              <div
+              <Col className="gutter-row" span={12}>
+                 <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -405,25 +477,34 @@ const CreateStorySidebar = (props) => {
                   handleChecked(item?.id);
                 }}
               >
-                <div className="checkbox-image">
+                  
+                   <div className="checkbox-image">
                   <img
                     src={item?.imageSrc}
                     className="select-comic-style-image"
                   />
                   {item?.isChecked && (
-                    <CheckCircleFilled
-                      style={{ fontSize: "19.5px", color: "#ffffff" }}
+                    <div className="story-check-illustration-style">
+                        <CheckCircleFilled
+                      style={{ fontSize: "22px", color: "#EB1551" }}
                       className="checkedFilled"
                     />
+                    </div>
+                  
                   )}
                 </div>
                 <div style={{ fontSize: "12px", color: "#696974" }}>
                   {item.name}
                 </div>
+   
+               
               </div>
+              </Col>
+             
             );
           })}
-        </div>
+            </Row>
+        {/* </div> */}
       </Form.Item>
       <Form.Item>
         <ComponentButton

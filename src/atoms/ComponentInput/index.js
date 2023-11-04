@@ -25,6 +25,7 @@ const ComponentInput = ({ value,onBlur, onChange,onPressEnter, style, ...props})
           onPressEnter(_val);
         }
       }}
+      
     />
   );
 };

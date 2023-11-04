@@ -15,6 +15,7 @@ import {
   RESET_PASSWORD_URL,
   FORGOT_PASSWORD_URL,
   VERIFY_ACCOUNT_URL,
+  TEST_JOT_FORM_URL,
 } from "./routes";
 import Auth from "./sub-components/Auth";
 import Home from "./components/Home";
@@ -29,6 +30,8 @@ import Profile from "./components/Profile";
 import ResetPasswordAuthContainer from "./sub-components/AuthContainer/ResetPasswordAuth";
 import ForgetPasswordAuthContainer from "./sub-components/AuthContainer/ForgetPasswordAuthContainer";
 import ActionVerficationAuthContainer from "./sub-components/AuthContainer/AccountVerficationAuthContainer";
+
+import JotFormTest from "./components/JotFormTest";
 
 function App() {
   return (
@@ -73,6 +76,7 @@ function App() {
         <Route path={RESET_PASSWORD_URL} element={<ResetPasswordAuthContainer />} />
         <Route path={FORGOT_PASSWORD_URL} element={<ForgetPasswordAuthContainer />} />
         <Route path={VERIFY_ACCOUNT_URL} element={<ActionVerficationAuthContainer />} />
+        <Route path={TEST_JOT_FORM_URL} element={<JotFormTest />} />
       </Routes>
     </Router>
   );
