@@ -71,12 +71,12 @@ const CreateStorySidebar = (props) => {
   ];
   const genderDummyList = [
     {
-      label: "Male",
-      value: "Male",
+      label: "Boy",
+      value: "Boy",
     },
     {
-      label: "Female",
-      value: "Female",
+      label: "Girl",
+      value: "Girl",
     }
   ];
   const dummyActivityList = [
