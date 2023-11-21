@@ -122,7 +122,17 @@ export const subscribeToPlan = (planId, callback) => {
       callback(response);
     })
     .catch(function (error) {
-      console.log(error);
+      callback(error);
+    });
+};
+
+export const validatePayment = (sessionId, callback) => {
+  api
+    .post("/payments/verifySession", { sessionId })
+    .then(function (response) {
+      callback(response);
+    })
+    .catch(function (error) {
       callback(error);
     });
 };

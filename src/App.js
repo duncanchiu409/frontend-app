@@ -16,6 +16,7 @@ import {
   FORGOT_PASSWORD_URL,
   VERIFY_ACCOUNT_URL,
   TEST_JOT_FORM_URL,
+  PAYMENT_SUCCESS_URL
 } from "./routes";
 import Auth from "./sub-components/Auth";
 import Home from "./components/Home";
@@ -32,6 +33,7 @@ import ForgetPasswordAuthContainer from "./sub-components/AuthContainer/ForgetPa
 import ActionVerficationAuthContainer from "./sub-components/AuthContainer/AccountVerficationAuthContainer";
 
 import JotFormTest from "./components/JotFormTest";
+import PaymentsSuccess from "./components/Pricing/PaymentsSuccess";
 
 function App() {
   return (
@@ -73,6 +75,7 @@ function App() {
         />
         <Route path={PROFILE_URL} element={<Profile />} />
         <Route path={PRICING_URL} element={<Pricing />} />
+        <Route path={PAYMENT_SUCCESS_URL} element={<PaymentsSuccess />} />
         <Route path={RESET_PASSWORD_URL} element={<ResetPasswordAuthContainer />} />
         <Route path={FORGOT_PASSWORD_URL} element={<ForgetPasswordAuthContainer />} />
         <Route path={VERIFY_ACCOUNT_URL} element={<ActionVerficationAuthContainer />} />

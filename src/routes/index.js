@@ -13,6 +13,7 @@ export const EDIT_STORY_URL = "/story/edit";
 export const DETAIL_STORY_URL = "/story/detail";
 export const PROFILE_URL = "/profile";
 export const PRICING_URL = "/pricing";
+export const PAYMENT_SUCCESS_URL = "/payment-success";
 export const RESET_PASSWORD_URL = "/reset-password";
 export const VERIFY_ACCOUNT_URL = "/verify-account";
 export const FORGOT_PASSWORD_URL = "/forgot-password";

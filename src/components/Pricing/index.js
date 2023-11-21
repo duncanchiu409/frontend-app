@@ -120,7 +120,7 @@ const Pricing = () => {
               list.push({
                 id: item?.id,
                 title: "Sparkle lite",
-                price: `$${item?.amount}`,
+                price: `$${item?.amount}/100`,
                 priceAmount: item?.amount,
                 isActive: false,
                 priceContent: [
@@ -144,7 +144,7 @@ const Pricing = () => {
               list.push({
                 id: item?.id,
                 title: "Sparkle lite",
-                price: `$${item?.amount}`,
+                price: `$${item?.amount / 100}`,
                 priceAmount: item?.amount,
                 isActive: false,
                 priceContent: [
@@ -173,8 +173,10 @@ const Pricing = () => {
       "pk_test_51O0MmrJJpJ9k3rm33t9fcVkDGQja0gYkN88AQdf2Fo1dDR3gaSxhrXYI6pHh0Zev4Wrd00mcmahaJbkmwFVxrX3r00lY05QprJ"
     );
     if (stripe) {
-      subscribeToPlan("price_1OCadAJJpJ9k3rm3A0k7xqYw", (response) => {
-        stripe.redirectToCheckout({ sessionId: response.sessionId });
+      subscribeToPlan(planId, (response) => {
+        const sessionId = response.data?.sessionId
+        console.log("sessionId", sessionId);
+        stripe.redirectToCheckout({ sessionId });
       });
     }
 
