@@ -1,7 +1,7 @@
 import JotformEmbed from 'react-jotform-embed';
 const JotFormTest = () => {
     return <div>
-        <JotformEmbed src="https://form.jotform.com/233042006796049" />
+        <JotformEmbed src="https://alt.jotfor.ms/233121314209038"  scrolling={false} className="iframe-container"/>
 
     </div>
 }

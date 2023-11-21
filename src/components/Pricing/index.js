@@ -11,6 +11,9 @@ import FloatVector1 from "../../assets/svg-icons/float-vector1.svg";
 import FloatVector2 from "../../assets/svg-icons/float-vector2.svg";
 import ComponentPricingCard from "../../atoms/ComponentPricingCard";
 import Header from "../../sub-components/Header";
+import { useEffect, useState } from "react";
+import { getPaymentPlansHook, subscribeToPlan } from "../../api-hooks/user";
+import { loadStripe } from "@stripe/stripe-js";
 
 const dummyPricingData = [
   {
@@ -98,8 +101,85 @@ const dummyPricingData = [
 ];
 
 const Pricing = () => {
+  const [pricingPlans, setPricingPlans] = useState([]);
+
+  const [isYearly, setIsYearly] = useState(false);
   const onChange = (checked) => {
     console.log(`switch to ${checked}`);
+    setIsYearly(checked);
+  };
+
+  useEffect(() => {
+    getPaymentPlansHook((response) => {
+      console.log("Payement Plans Response", response);
+      let list = [];
+      if (isYearly) {
+        if (response?.yearly?.length) {
+          response?.yearly?.forEach((item) => {
+            if (item?.metadata?.main !== "false") {
+              list.push({
+                id: item?.id,
+                title: "Sparkle lite",
+                price: `$${item?.amount}`,
+                priceAmount: item?.amount,
+                isActive: false,
+                priceContent: [
+                  {
+                    priceContentData: [
+                      "Personalised story",
+                      "Library Of Thousands Of Tales",
+                      "Meditations",
+                      "Lullabies",
+                    ],
+                  },
+                ],
+              });
+            }
+          });
+        }
+      } else {
+        if (response?.monthly?.length) {
+          response?.monthly?.forEach((item) => {
+            if (item?.metadata?.main !== "false") {
+              list.push({
+                id: item?.id,
+                title: "Sparkle lite",
+                price: `$${item?.amount}`,
+                priceAmount: item?.amount,
+                isActive: false,
+                priceContent: [
+                  {
+                    priceContentData: [
+                      "Personalised story",
+                      "Library Of Thousands Of Tales",
+                      "Meditations",
+                      "Lullabies",
+                    ],
+                  },
+                ],
+              });
+            }
+          });
+        }
+      }
+
+      setPricingPlans(list);
+    });
+  }, [isYearly]);
+  // price_1OCadAJJpJ9k3rm3A0k7xqYw;
+  const onSelectPlan = async (planId) => {
+    console.log("On select Plan", planId);
+    let stripe = await loadStripe(
+      "pk_test_51O0MmrJJpJ9k3rm33t9fcVkDGQja0gYkN88AQdf2Fo1dDR3gaSxhrXYI6pHh0Zev4Wrd00mcmahaJbkmwFVxrX3r00lY05QprJ"
+    );
+    if (stripe) {
+      subscribeToPlan("price_1OCadAJJpJ9k3rm3A0k7xqYw", (response) => {
+        stripe.redirectToCheckout({ sessionId: response.sessionId });
+      });
+    }
+
+    // if (!this.isSubscribed) {
+    // }
   };
   return (
     <div>
@@ -167,18 +247,20 @@ const Pricing = () => {
           <h3>Choose your plan</h3>
           <div className="pricing-switch">
             <p>Pay Monthly</p>
-            <Switch defaultChecked onChange={onChange} />
+            <Switch checked={isYearly} onChange={onChange} />
             <p>Yearly</p>
           </div>
         </div>
         <div className="card-price-display" style={{ paddingTop: "46px" }}>
-          {dummyPricingData.map((item) => {
+          {pricingPlans.map((item) => {
             return (
               <ComponentPricingCard
                 title={item?.title}
                 price={item?.price}
                 priceContent={item?.priceContent}
                 isActive={item?.isActive}
+                planId={item?.id}
+                onClick={onSelectPlan}
               />
             );
           })}

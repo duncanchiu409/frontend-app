@@ -5,9 +5,10 @@ import PageTitle from "../../sub-components/PageTitle";
 import "./Subscription.css";
 import { CloseOutlined } from "@ant-design/icons";
 import ComponentNotificationBar from "../../atoms/ComponentNotificationBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { PRICING_URL } from "../../routes";
+import { getBooksCreated } from "../../api-hooks/user";
 
 const dataSourcePlan = [
   {
@@ -116,10 +117,20 @@ const Subscription = () => {
   const onChange = (newValue) => {
     setInputValue(newValue);
   };
+
+  useEffect(() => {
+    getBooksCreated("", () => {});
+  });
   return (
     <MainContainer>
       <PageTitle title="Subscription" />
-      <ComponentCard title="Plan details" btnTitle="Change Plan" onClick={()=>{navigate(PRICING_URL)}}>
+      <ComponentCard
+        title="Plan details"
+        btnTitle="Change Plan"
+        onClick={() => {
+          navigate(PRICING_URL);
+        }}
+      >
         <div className="table-design">
           <Table
             columns={columnsPlan}
