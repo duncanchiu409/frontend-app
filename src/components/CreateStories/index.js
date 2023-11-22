@@ -10,7 +10,10 @@ import TabImg4 from "../../assets/svg-icons/tabImg4.svg";
 import { Progress, message } from "antd";
 import axios from "axios";
 import DownloadScreenImage from "../../assets/svg-icons/download-screen-image.svg";
-import { getUserInfoHook } from "../../api-hooks/user";
+import { getBooksCreated, getUserInfoHook } from "../../api-hooks/user";
+import { plansObj } from "../../dataHelper";
+import { useNavigate } from "react-router";
+import { PRICING_URL } from "../../routes";
 
 const CreateStories = ({ type }) => {
   const [generateStry, setGenerateStry] = useState(false);
@@ -20,19 +23,20 @@ const CreateStories = ({ type }) => {
   const [downloadLink, setDownloadLink] = useState("");
   const [storyId, setStoryId] = useState();
   const [downloadData, setDownloadData] = useState();
-  const [isGenerateClicked, setIsGenerateClicked] = useState(false)
+  const [isGenerateClicked, setIsGenerateClicked] = useState(false);
 
-  const [user, setUser] = useState(null)
+  const navigate = useNavigate();
+
+  const [subscribedMessage, setSubscribedMessage] = useState("");
+
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     getUserInfoHook((response) => {
-
-      console.log("get User Data", response)
-      setUser(response)
-
-    })
-
-  }, [])
+      console.log("get User Data", response);
+      setUser(response);
+    });
+  }, []);
   const dummyTabList = [
     {
       id: 1,
@@ -69,39 +73,55 @@ const CreateStories = ({ type }) => {
 
   const generateStory = (values) => {
     console.log("printing the values", values, user?.id);
-    if(!isGenerateClicked){
-      values.age = Number(values.age);
-      values.customer_id = user?.id
-      setProgressBarValue();
-      setProgressStepText("")
-      setDownloadLink("")
-      setDownloadData()
-      setIsGenerateClicked(true)
-      const token = localStorage.getItem("authToken");
-      let config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: `${process.env.REACT_APP_PY_API}/book`,
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`
-        },
-        data: values,
-      };
-      axios
-        .request(config)
-        .then((response) => {
-          console.log(JSON.stringify(response.data));
-          setProgressBarStatus(true);
-          setStoryId(response.data);
-          getCalculatedProgressData(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+
+    if (!isGenerateClicked) {
+      getBooksCreated(user?.id, (totalBookUsedResponse) => {
+        const subscriptionType = user?.subscriptionType;
+        const current_month = totalBookUsedResponse?.current_month;
+        if (
+          plansObj[subscriptionType]?.noOfStories &&
+          current_month < plansObj[subscriptionType]?.noOfStories
+        ) {
+          values.age = Number(values.age);
+          values.customer_id = user?.id;
+          setProgressBarValue();
+          setProgressStepText("");
+          setDownloadLink("");
+          setDownloadData();
+          setIsGenerateClicked(true);
+          const token = localStorage.getItem("authToken");
+          let config = {
+            method: "post",
+            maxBodyLength: Infinity,
+            url: `${process.env.REACT_APP_PY_API}/book`,
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            data: values,
+          };
+          axios
+            .request(config)
+            .then((response) => {
+              console.log(JSON.stringify(response.data));
+              setProgressBarStatus(true);
+              setStoryId(response.data);
+              getCalculatedProgressData(response.data);
+              setSubscribedMessage("");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          if (subscriptionType === "Promotional Plan") {
+            setSubscribedMessage("Buy");
+          } else {
+            setSubscribedMessage("Upgrade");
+          }
+        }
+      });
     }
-   
   };
 
   const getCalculatedProgressData = (storyId) => {
@@ -114,7 +134,7 @@ const CreateStories = ({ type }) => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
       };
       axios
@@ -132,12 +152,13 @@ const CreateStories = ({ type }) => {
           if (progresbarValue === 100) {
             setDownloadLink(response.data.pdf_path);
             setDownloadData(response.data);
-            setIsGenerateClicked(false)
+            setIsGenerateClicked(false);
           }
           setProgressStepText(response?.data?.state_text);
         })
         .catch((error) => {
           console.log(error);
+          setIsGenerateClicked(false);
         });
     }
   };
@@ -150,7 +171,7 @@ const CreateStories = ({ type }) => {
       } else {
         // If the task is completed, clear the interval
         console.log("progressBarValue Completed", progressBarValue);
-      
+
         clearInterval(intervalId);
       }
     }, 30000);
@@ -165,122 +186,190 @@ const CreateStories = ({ type }) => {
     <div className="create-stry-container">
       <MainContainer stryGenerate={generateStory}>
         <div className="stry-container">
-          <div className="stry-header">
-            {/* <img src={ShareBtn} style={{ cursor: "pointer" }} /> */}
-            {downloadLink && <a href={downloadLink} download="Story" target="_blank">
-            <ComponentButton
-              title={"Download"}
-              style={{
-                width: "120px",
-                borderRadius: "10px",
-                fontSize: "12px",
-                height: "38px",
-                backgroundColor: "#EB1551",
-              }}
-            />
-            </a>}
-            
-           
-          </div>
-          <div className="stry-content">
-            {(generateStry || type === "detail" || type === "edit") && (
-              <div style={{ textAlign: "center" }}>
-                {checkedData.map((item) => {
-                  if (item?.isChecked === true) {
-                    return (
-                      <img src={item?.imageSrc} style={{ width: "60%" }} />
-                    );
-                  }
-                })}
-              </div>
-            )}
-            {!generateStry && type !== "detail" && type !== "edit" && (
-              <div className="stry-content-frame">
-                {progressBarStatus && !downloadLink && (
-                  <div className="progress-bar">
-                    <Progress percent={progressBarValue} status="active" />
-                    <div
-                      style={{
-                        textAlign: "center",
-                        fontWeight: "600",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {progressStepText}
-                    </div>
-                  </div>
-                )}
+          {!subscribedMessage && (
+            <>
+              <div className="stry-header">
+                {/* <img src={ShareBtn} style={{ cursor: "pointer" }} /> */}
                 {downloadLink && (
-                  <div style={{ display: "flex", alignItems: "center",flexDirection:'column',overflowY:'auto', paddingTop:"30px" }}>
-                    <h6
+                  <a href={downloadLink} download="Story" target="_blank">
+                    <ComponentButton
+                      title={"Download"}
                       style={{
-                        textAlign: "center",
-                        color: "#44444F",
-                        fontWeight: "bold",
-                        fontSize: "22px",
-                        fontFamily: "inter",
-                        margin:'0px'
+                        width: "120px",
+                        borderRadius: "10px",
+                        fontSize: "12px",
+                        height: "38px",
+                        backgroundColor: "#EB1551",
                       }}
-
-                    >
-                      {downloadData?.tasks?.prepare_image_commands?.title}
-                    </h6>
-                    <p
-                      style={{
-                        textAlign: "center",
-                        color: "#44444F",
-                        fontSize: "14px",
-                        maxWidth: "488px",
-                        margin: "auto",
-                        width: "100%",
-                        margin:'10px'
-                      }}
-                    >
-                      {downloadData?.tasks?.prepare_image_commands?.moral}
-
-                    </p>
-                    <div style={{ padding: "10px 0px", textAlign: "center" }}>
-                      {/* <img src={downloadData?.tasks?.generate_image[0]?.Page5}/> */}
-                      <img src={DownloadScreenImage} style={{maxWidth:"200px"}}/>
-                    </div>
-                    <a href={downloadLink} download="Story" target="_blank">
-                      <ComponentButton
-                        title={"Download"}
+                    />
+                  </a>
+                )}
+              </div>
+              <div className="stry-content">
+                {(generateStry || type === "detail" || type === "edit") && (
+                  <div style={{ textAlign: "center" }}>
+                    {checkedData.map((item) => {
+                      if (item?.isChecked === true) {
+                        return (
+                          <img src={item?.imageSrc} style={{ width: "60%" }} />
+                        );
+                      }
+                    })}
+                  </div>
+                )}
+                {!generateStry && type !== "detail" && type !== "edit" && (
+                  <div className="stry-content-frame">
+                    {progressBarStatus && !downloadLink && (
+                      <div className="progress-bar">
+                        <Progress percent={progressBarValue} status="active" />
+                        <div
+                          style={{
+                            textAlign: "center",
+                            fontWeight: "600",
+                            fontSize: "14px",
+                          }}
+                        >
+                          {progressStepText}
+                        </div>
+                      </div>
+                    )}
+                    {downloadLink && (
+                      <div
                         style={{
-                          width: "120px",
-                          borderRadius: "10px",
-                          fontSize: "12px",
-                          height: "38px",
-                          backgroundColor: "#EB1551",
+                          display: "flex",
+                          alignItems: "center",
+                          flexDirection: "column",
+                          overflowY: "auto",
+                          paddingTop: "30px",
                         }}
-                      />
-                    </a>
+                      >
+                        <h6
+                          style={{
+                            textAlign: "center",
+                            color: "#44444F",
+                            fontWeight: "bold",
+                            fontSize: "22px",
+                            fontFamily: "inter",
+                            margin: "0px",
+                          }}
+                        >
+                          {downloadData?.tasks?.prepare_image_commands?.title}
+                        </h6>
+                        <p
+                          style={{
+                            textAlign: "center",
+                            color: "#44444F",
+                            fontSize: "14px",
+                            maxWidth: "488px",
+                            margin: "auto",
+                            width: "100%",
+                            margin: "10px",
+                          }}
+                        >
+                          {downloadData?.tasks?.prepare_image_commands?.moral}
+                        </p>
+                        <div
+                          style={{ padding: "10px 0px", textAlign: "center" }}
+                        >
+                          {/* <img src={downloadData?.tasks?.generate_image[0]?.Page5}/> */}
+                          <img
+                            src={DownloadScreenImage}
+                            style={{ maxWidth: "200px" }}
+                          />
+                        </div>
+                        <a href={downloadLink} download="Story" target="_blank">
+                          <ComponentButton
+                            title={"Download"}
+                            style={{
+                              width: "120px",
+                              borderRadius: "10px",
+                              fontSize: "12px",
+                              height: "38px",
+                              backgroundColor: "#EB1551",
+                            }}
+                          />
+                        </a>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
-            )}
-          </div>
-          <div className="stry-footer">
-            {(generateStry || type === "detail" || type === "edit") && (
-              <div style={{ display: "flex", gap: "8px" }}>
-                {checkedData.map((item) => {
-                  return (
-                    <div
-                      onClick={() => {
-                        handleChecked(item?.id);
-                      }}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <img src={item?.imageSrc} />
-                    </div>
-                  );
-                })}
+              <div className="stry-footer">
+                {(generateStry || type === "detail" || type === "edit") && (
+                  <div style={{ display: "flex", gap: "8px" }}>
+                    {checkedData.map((item) => {
+                      return (
+                        <div
+                          onClick={() => {
+                            handleChecked(item?.id);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <img src={item?.imageSrc} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+                {!generateStry && type !== "detail" && type !== "edit" && (
+                  <>
+                    {!progressBarStatus && <div className="empty-card"></div>}
+                  </>
+                )}
               </div>
-            )}
-            {!generateStry && type !== "detail" && type !== "edit" && (
-              <>{!progressBarStatus && <div className="empty-card"></div>}</>
-            )}
-          </div>
+            </>
+          )}
+          {subscribedMessage && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
+              {subscribedMessage === "Buy" && (
+                <>
+                  <div>No Subscription found</div>
+                  <ComponentButton
+                    title="Subscribe"
+                    style={{
+                      width: "160px",
+                      fontSize: "16px",
+                      fontWeight: "700",
+                      height: "50px",
+                      marginTop: "20px",
+                      backgroundColor: "#EB1551",
+                    }}
+                    onClick={() => {
+                      navigate(PRICING_URL);
+                    }}
+                  />
+                </>
+              )}
+
+              {subscribedMessage === "Upgrade" && (
+                <>
+                  <div>Upgrade your plan</div>
+                  <ComponentButton
+                    title="Upgrade"
+                    style={{
+                      width: "160px",
+                      fontSize: "16px",
+                      fontWeight: "700",
+                      height: "50px",
+                      marginTop: "20px",
+                      backgroundColor: "#EB1551",
+                    }}
+                    onClick={() => {
+                      navigate(PRICING_URL);
+                    }}
+                  />
+                </>
+              )}
+            </div>
+          )}
         </div>
       </MainContainer>
     </div>

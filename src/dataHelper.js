@@ -3,6 +3,70 @@ import story2 from "./assets/story2.png";
 import gallery1 from "./assets/gallery1.png";
 import gallery2 from "./assets/gallery2.png";
 
+export const plansObj = {
+  Essential: {
+    id: "Essential",
+    name: "Essential",
+    noOfStories: 1,
+    storiesText: "1 story",
+    cost: "$5",
+  },
+  Pro: {
+    id: "Pro",
+    name: "Pro",
+    noOfStories: 10,
+    storiesText: "10 stories",
+    cost: "$10",
+  },
+  Premium: {
+    id: "Premium",
+    name: "Premium",
+    noOfStories: 30,
+    storiesText: "30 stories",
+    cost: "$15",
+  },
+};
+
+export const formatDate = (date) => {
+  const date_ = new Date(date);
+  const day = date_.getDate();
+  const month = getMonth(date_.getMonth());
+  const year = date_.getFullYear();
+  return `${day} ${month} ${year}`;
+};
+
+const getMonth = (month) => {
+  switch (month) {
+    case 0:
+      return "Jan";
+    case 1:
+      return "Feb";
+    case 2:
+      return "Mar";
+    case 3:
+      return "Apr";
+    case 4:
+      return "May";
+    case 5:
+      return "Jun";
+    case 6:
+      return "Jul";
+    case 7:
+      return "Aug";
+    case 8:
+      return "Sep";
+    case 9:
+      return "Oct";
+    case 10:
+      return "Nov";
+    case 11:
+      return "Dec";
+
+    default:
+      return "Jan";
+  }
+};
+
 export const galleryData = [
   {
     id: 1,

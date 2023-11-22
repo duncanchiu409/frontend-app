@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MainContainer from "../../sub-components/MainContainer";
 import CardTemplate from "../../sub-components/CardTemplate";
 import ImageSample from "../../assets/svg-icons/card-sample1.svg";
@@ -13,9 +13,24 @@ import { useNavigate } from "react-router";
 import { CREATE_STORIES_URL } from "../../routes";
 import PageTitle from "../../sub-components/PageTitle";
 import { Link } from "react-router-dom";
+import { getBooksCreatedByUser, getUserInfoHook } from "../../api-hooks/user";
+import { formatDate } from "../../dataHelper";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+
+  const [storiesList, setStoriesList] = useState([]);
+
+  useEffect(() => {
+    getUserInfoHook((response) => {
+      if (response?.id) {
+        getBooksCreatedByUser(response?.id, (bookResponse) => {
+          console.log("Books response", bookResponse);
+          setStoriesList(bookResponse);
+        });
+      }
+    });
+  });
   return (
     <MainContainer style={{ padding: 0 }}>
       <div>
@@ -34,17 +49,23 @@ const Dashboard = () => {
               <div>Create New</div>
             </div>
           </Col> */}
-          <Col span={5} style={{ marginRight: "16px" }}>
-            <Link to="/story/edit">
-              <CardTemplate
-                imageSrc={story1}
-                cardContent={"Nik’s rocky mountain adventure"}
-                contentTitle={"Sample"}
-                contentDate={"16 Jan 2023"}
-              />
-            </Link>
-          </Col>
-          <Col span={5} style={{ marginRight: "16px" }}>
+          {storiesList?.length > 0 &&
+            storiesList?.map((story) => {
+              return (
+                <Col span={5} style={{ marginRight: "16px" }}>
+                  {/* <Link to="/story/edit"> */}
+                  <CardTemplate
+                    imageSrc={story?.image}
+                    cardContent={story?.title}
+                    contentTitle={""}
+                    contentDate={story?.time && formatDate(story?.time * 1000)}
+                  />
+                  {/* </Link> */}
+                </Col>
+              );
+            })}
+
+          {/* <Col span={5} style={{ marginRight: "16px" }}>
             <Link to="/story/edit">
               <CardTemplate
                 imageSrc={story2}
@@ -73,7 +94,7 @@ const Dashboard = () => {
                 contentDate={"16 Jan 2023"}
               />
             </Link>
-          </Col>
+          </Col> */}
         </Row>
       </div>
     </MainContainer>

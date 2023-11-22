@@ -63,9 +63,17 @@
   height: 0;
 }
 .table-payment-design .ant-table-tbody .ant-table-cell {
-    border: 0;
-    color: #706E6E;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 22px;
-  }
+  border: 0;
+  color: #706e6e;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.subscription-empty-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 50px);
+  flex-direction: column;
+}

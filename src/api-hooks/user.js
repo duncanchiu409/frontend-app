@@ -142,18 +142,48 @@ export const getBooksCreated = (userId, callback) => {
   let getDataStatus = {
     method: "get",
     maxBodyLength: Infinity,
-    url: `${process.env.REACT_APP_PY_API}/user/usage?customer_id=652cfcb78722982a0bf49cea`,
+    url: `${process.env.REACT_APP_PY_API}/user/usage?customer_id=${userId}`,
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
   };
-  axios.request(getDataStatus).then((data) => {
-    console.log("Total Book Used", data);
+  axios.request(getDataStatus).then((response) => {
+    console.log("Total Book Used", response);
+    callback(response?.data);
   });
 };
 
+export const getInvoiceHistoryHook = (callback) => {
+  api
+    .get("/payments/stripeInvoiceHistory")
+    .then(function (response) {
+      callback(response?.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+      callback(error);
+    });
+};
+
+export const getBooksCreatedByUser = (userId, callback) => {
+  const token = localStorage.getItem("authToken");
+  let getDataStatus = {
+    method: "get",
+    maxBodyLength: Infinity,
+    url: `${process.env.REACT_APP_PY_API}/book/customer?customer_id=${userId}`,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  axios.request(getDataStatus).then((response) => {
+    console.log("Total Books Created", response);
+    callback(response?.data);
+  });
+};
 // subscribeToPlan = (planId) => {
 //   return this.httpClient.post(
 //     `${environment.apiurl}/payments/createStripeSession`,

@@ -119,8 +119,8 @@ const Pricing = () => {
             if (item?.metadata?.main !== "false") {
               list.push({
                 id: item?.id,
-                title: "Sparkle lite",
-                price: `$${item?.amount}/100`,
+                title: item?.nickname,
+                price: `$${item?.amount / 100}`,
                 priceAmount: item?.amount,
                 isActive: false,
                 priceContent: [
@@ -143,7 +143,7 @@ const Pricing = () => {
             if (item?.metadata?.main !== "false") {
               list.push({
                 id: item?.id,
-                title: "Sparkle lite",
+                title: item?.nickname,
                 price: `$${item?.amount / 100}`,
                 priceAmount: item?.amount,
                 isActive: false,
@@ -174,7 +174,7 @@ const Pricing = () => {
     );
     if (stripe) {
       subscribeToPlan(planId, (response) => {
-        const sessionId = response.data?.sessionId
+        const sessionId = response.data?.sessionId;
         console.log("sessionId", sessionId);
         stripe.redirectToCheckout({ sessionId });
       });

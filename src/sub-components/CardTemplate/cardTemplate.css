@@ -1,8 +1,9 @@
 .card-template {
   width: 100%;
   max-width: 246px;
-  height: 307px;
+  height: 245px;
   font-size: 12px;
+  padding-top: 10px;
 
   border-radius: 11.37px;
   font-weight: 500;

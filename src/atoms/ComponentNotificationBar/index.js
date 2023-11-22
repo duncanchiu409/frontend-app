@@ -1,7 +1,8 @@
 import { CloseOutlined } from "@ant-design/icons";
 import React from "react";
+import { formatDate } from "../../dataHelper";
 
-const ComponentNotificationBar = () => {
+const ComponentNotificationBar = ({ subscriptionEndDate }) => {
   return (
     <div
       style={{
@@ -22,7 +23,7 @@ const ComponentNotificationBar = () => {
           margin: "0px",
         }}
       >
-        Your last purchase was on 22 Jan 2023
+        Your Plan will expire on {formatDate(subscriptionEndDate)}
       </p>
       <CloseOutlined style={{ cursor: "pointer" }} />
     </div>
