@@ -30,7 +30,7 @@ const SignUpAuthContainer = ({ imgSrc, onFinish, title }) => {
                   className="signup-name"
                 >
                   <Form.Item
-                    label="Enter your First Name"
+                    label="Enter your first name"
                     name="firstName"
                     rules={[
                       {
@@ -125,9 +125,9 @@ const SignUpAuthContainer = ({ imgSrc, onFinish, title }) => {
                     }}
                   />
                 </Form.Item>
-                <Form.Item label="Referal Code (optional)">
+                <Form.Item label="Referral Code (optional)">
                   <ComponentInput
-                    placeholder="Referal Code"
+                    placeholder="Referral Code"
                     style={{
                       height: "48px",
                       borderRadius: "9px",
