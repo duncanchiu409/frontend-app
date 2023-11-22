@@ -30,7 +30,7 @@ const Dashboard = () => {
         });
       }
     });
-  });
+  }, []);
   return (
     <MainContainer style={{ padding: 0 }}>
       <div>
