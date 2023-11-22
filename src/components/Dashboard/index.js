@@ -53,13 +53,19 @@ const Dashboard = () => {
             storiesList?.map((story) => {
               return (
                 <Col span={5} style={{ marginRight: "16px" }}>
+                  <a href={story?.pdf_url} download="Story" target="_blank">
+                    <CardTemplate
+                      imageSrc={story?.image}
+                      cardContent={story?.title}
+                      contentTitle={""}
+                      pdfLink={story?.pdf_url}
+                      contentDate={
+                        story?.time && formatDate(story?.time * 1000)
+                      }
+                    />
+                  </a>
                   {/* <Link to="/story/edit"> */}
-                  <CardTemplate
-                    imageSrc={story?.image}
-                    cardContent={story?.title}
-                    contentTitle={""}
-                    contentDate={story?.time && formatDate(story?.time * 1000)}
-                  />
+
                   {/* </Link> */}
                 </Col>
               );
