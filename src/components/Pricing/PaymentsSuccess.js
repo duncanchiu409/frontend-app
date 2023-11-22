@@ -105,7 +105,7 @@ export default function PaymentsSuccess() {
                   fontWeight: "700",
                   height: "50px",
                   marginTop: "20px",
-                  backgroundColor: "#EB1551",
+                  backgroundColor: "#0089ED",
                 }}
                 onClick={() => {
                   navigate(SUBSCRIPTION_URL);
@@ -141,7 +141,7 @@ export default function PaymentsSuccess() {
                   fontWeight: "700",
                   height: "50px",
                   marginTop: "20px",
-                  backgroundColor: "#EB1551",
+                  backgroundColor: "#0089ED",
                 }}
                 onClick={() => {
                   navigate(SUBSCRIPTION_URL);
