@@ -8,6 +8,7 @@ const ComponentPricingCard = ({
   isActive,
   planId,
   onClick,
+  userPurchasedPlan,
 }) => {
   console.log("isActive", isActive);
   return (
@@ -21,7 +22,11 @@ const ComponentPricingCard = ({
       </ul>
 
       <ComponentButton
-        title="Buy"
+        title={
+          userPurchasedPlan && userPurchasedPlan === title
+            ? "Subscribed"
+            : "Upgrade" || "Buy"
+        }
         style={{
           width: "200px",
           fontSize: "16px",
@@ -29,9 +34,11 @@ const ComponentPricingCard = ({
           height: "50px",
           marginTop: "20px",
           backgroundColor: "#EB1551",
+          visibility: title === "Free" ? "hidden" : "visible",
         }}
+        disabled={userPurchasedPlan === title}
         onClick={() => {
-          onClick(planId);
+          if (title !== "Free") onClick(planId);
         }}
       />
     </div>

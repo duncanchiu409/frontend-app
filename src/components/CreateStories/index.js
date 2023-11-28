@@ -76,7 +76,7 @@ const CreateStories = ({ type }) => {
 
     if (!isGenerateClicked) {
       getBooksCreated(user?.id, (totalBookUsedResponse) => {
-        const subscriptionType = user?.subscriptionType;
+        const subscriptionType = user?.subscribedPlan?.nickname;
         const current_month = totalBookUsedResponse?.current_month;
         if (
           plansObj[subscriptionType]?.noOfStories &&

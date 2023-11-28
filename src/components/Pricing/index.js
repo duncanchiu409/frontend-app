@@ -12,96 +12,16 @@ import FloatVector2 from "../../assets/svg-icons/float-vector2.svg";
 import ComponentPricingCard from "../../atoms/ComponentPricingCard";
 import Header from "../../sub-components/Header";
 import { useEffect, useState } from "react";
-import { getPaymentPlansHook, subscribeToPlan } from "../../api-hooks/user";
+import {
+  getPaymentPlansHook,
+  getUserInfoHook,
+  subscribeToPlan,
+} from "../../api-hooks/user";
 import { loadStripe } from "@stripe/stripe-js";
-
-const dummyPricingData = [
-  {
-    id: 1,
-    title: "Sparkle lite",
-    price: "Free",
-    isActive: false,
-    priceContent: [
-      {
-        priceContentData: [
-          "Personalised story",
-          "Library Of Thousands Of Tales",
-          "Meditations",
-          "Lullabies",
-        ],
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: "Sparkle Dreamer",
-    price: "$4.99",
-    isActive: true,
-    priceContent: [
-      {
-        priceContentData: [
-          "Personalised story",
-          "Library Of Thousands Of Tales",
-          "Meditations",
-          "Lullabies",
-          "Personalised story",
-          "Library Of Thousands Of Tales",
-          "Meditations",
-          "Lullabies",
-          "Personalised story",
-          "Library Of Thousands Of Tales",
-        ],
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: "Sparkle Magician",
-    price: "$6.99",
-    isActive: false,
-    priceContent: [
-      {
-        priceContentData: [
-          "Personalised story",
-          "Library Of Thousands Of Tales",
-          "Meditations",
-          "Lullabies",
-          "Personalised story",
-          "Library Of Thousands Of Tales",
-          "Meditations",
-          "Lullabies",
-          "Personalised story",
-          "Library Of Thousands Of Tales",
-        ],
-      },
-    ],
-  },
-  {
-    id: 4,
-    title: "Sparkle Champion",
-    price: "$9.99",
-    isActive: false,
-    priceContent: [
-      {
-        priceContentData: [
-          "Personalised story",
-          "Library Of Thousands Of Tales",
-          "Meditations",
-          "Lullabies",
-          "Personalised story",
-          "Library Of Thousands Of Tales",
-          "Meditations",
-          "Lullabies",
-          "Personalised story",
-          "Library Of Thousands Of Tales",
-        ],
-      },
-    ],
-  },
-];
 
 const Pricing = () => {
   const [pricingPlans, setPricingPlans] = useState([]);
+  const [user, setUser] = useState();
 
   const [isYearly, setIsYearly] = useState(false);
   const onChange = (checked) => {
@@ -110,6 +30,13 @@ const Pricing = () => {
   };
 
   useEffect(() => {
+    getUserInfoHook((response) => {
+      if (response) {
+        setUser(response);
+      }
+    });
+  }, []);
+  useEffect(() => {
     getPaymentPlansHook((response) => {
       console.log("Payement Plans Response", response);
       let list = [];
@@ -117,6 +44,44 @@ const Pricing = () => {
         if (response?.yearly?.length) {
           response?.yearly?.forEach((item) => {
             if (item?.metadata?.main !== "false") {
+              let priceContentData = [];
+              if (item?.nickname === "Free") {
+                priceContentData = [
+                  "1 book",
+                  "choose from 6 unique illustration styles",
+                  "create personalized characters",
+                  "customized story themes",
+                  "10 pages",
+                  "",
+                ];
+              } else if (item?.nickname === "Starter") {
+                priceContentData = [
+                  "1 book",
+                  "choose from 6 unique illustration styles",
+                  "create personalized characters",
+                  "customized story themes",
+                  "10 pages",
+                  "download to PDF",
+                ];
+              } else if (item?.nickname === "Dreamer") {
+                priceContentData = [
+                  "10 books",
+                  "choose from 6 unique illustration styles",
+                  "create personalized characters",
+                  "customized story themes",
+                  "10 pages",
+                  "download to PDF",
+                ];
+              } else if (item?.nickname === "Magician") {
+                priceContentData = [
+                  "30 books",
+                  "choose from 6 unique illustration styles",
+                  "create personalized characters",
+                  "customized story themes",
+                  "10 pages",
+                  "download to PDF",
+                ];
+              }
               list.push({
                 id: item?.id,
                 title: item?.nickname,
@@ -125,12 +90,7 @@ const Pricing = () => {
                 isActive: false,
                 priceContent: [
                   {
-                    priceContentData: [
-                      "Personalised story",
-                      "Library Of Thousands Of Tales",
-                      "Meditations",
-                      "Lullabies",
-                    ],
+                    priceContentData: priceContentData,
                   },
                 ],
               });
@@ -141,6 +101,44 @@ const Pricing = () => {
         if (response?.monthly?.length) {
           response?.monthly?.forEach((item) => {
             if (item?.metadata?.main !== "false") {
+              let priceContentData = [];
+              if (item?.nickname === "Free") {
+                priceContentData = [
+                  "1 book",
+                  "choose from 6 unique illustration styles",
+                  "create personalized characters",
+                  "customized story themes",
+                  "10 pages",
+                  "",
+                ];
+              } else if (item?.nickname === "Starter") {
+                priceContentData = [
+                  "1 book",
+                  "choose from 6 unique illustration styles",
+                  "create personalized characters",
+                  "customized story themes",
+                  "10 pages",
+                  "download to PDF",
+                ];
+              } else if (item?.nickname === "Dreamer") {
+                priceContentData = [
+                  "10 books",
+                  "choose from 6 unique illustration styles",
+                  "create personalized characters",
+                  "customized story themes",
+                  "10 pages",
+                  "download to PDF",
+                ];
+              } else if (item?.nickname === "Magician") {
+                priceContentData = [
+                  "30 books",
+                  "choose from 6 unique illustration styles",
+                  "create personalized characters",
+                  "customized story themes",
+                  "10 pages",
+                  "download to PDF",
+                ];
+              }
               list.push({
                 id: item?.id,
                 title: item?.nickname,
@@ -149,12 +147,7 @@ const Pricing = () => {
                 isActive: false,
                 priceContent: [
                   {
-                    priceContentData: [
-                      "Personalised story",
-                      "Library Of Thousands Of Tales",
-                      "Meditations",
-                      "Lullabies",
-                    ],
+                    priceContentData: priceContentData,
                   },
                 ],
               });
@@ -183,6 +176,8 @@ const Pricing = () => {
     // if (!this.isSubscribed) {
     // }
   };
+
+  console.log("Login User", user);
   return (
     <div>
       <Header />
@@ -263,6 +258,7 @@ const Pricing = () => {
                 isActive={item?.isActive}
                 planId={item?.id}
                 onClick={onSelectPlan}
+                userPurchasedPlan={user?.subscribedPlan?.nickname}
               />
             );
           })}

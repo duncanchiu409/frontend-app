@@ -5,11 +5,17 @@ import "./AuthContainer.css";
 import ComponentInput from "../../atoms/ComponentInput";
 import ComponentButton from "../../atoms/ComponentButton";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { HOME_URL, LOGIN_URL, RESET_PASSWORD_URL, SIGN_UP_URL, VERIFY_ACCOUNT_URL } from "../../routes";
+import {
+  HOME_URL,
+  LOGIN_URL,
+  RESET_PASSWORD_URL,
+  SIGN_UP_URL,
+  VERIFY_ACCOUNT_URL,
+} from "../../routes";
 import LoginSideImage from "../../assets/svg-icons/loginSideImage.svg";
 
 const ResetPasswordAuthContainer = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className="login-background">
       <div className="header">

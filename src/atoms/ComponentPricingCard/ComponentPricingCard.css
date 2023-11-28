@@ -12,12 +12,12 @@
     background: #EB1551;
     color: #ffffff;
 } */
-.price-card:hover{
-  background: #EB1551;
+.price-card:hover {
+  background: #eb1551;
   color: #ffffff;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
-.price-card:hover h6{
+.price-card:hover h6 {
   color: #ffffff;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
@@ -55,6 +55,7 @@
   line-height: normal;
   padding-bottom: 16px;
 }
-.price-card ul li:last-child{
-    padding-bottom: 0;
+.price-card ul li:last-child {
+  padding-bottom: 0;
+  min-height: 21.5px;
 }

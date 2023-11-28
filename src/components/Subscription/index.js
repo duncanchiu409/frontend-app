@@ -146,10 +146,11 @@ const Subscription = () => {
 
   useEffect(() => {
     getUserInfoHook((response) => {
-      const plan = response?.subscriptionType;
-      const monthlyLimit = plansObj[response?.subscriptionType]?.storiesText;
-      const costPerMonth = plansObj[response?.subscriptionType]?.cost;
-      setSubscriptionType(response?.subscriptionType);
+      const plan = response?.subscribedPlan?.nickname;
+      const monthlyLimit =
+        plansObj[response?.subscribedPlan?.nickname]?.storiesText;
+      const costPerMonth = plansObj[response?.subscribedPlan?.nickname]?.cost;
+      setSubscriptionType(response?.subscribedPlan?.nickname);
       setPaymentInfo([
         {
           key: "1",
@@ -189,10 +190,10 @@ const Subscription = () => {
         <>
           <ComponentCard
             title="Plan details"
-            btnTitle=""
-            // onClick={() => {
-            //   navigate(PRICING_URL);
-            // }}
+            btnTitle="CHANGE PLAN"
+            onClick={() => {
+              navigate(PRICING_URL);
+            }}
           >
             <div className="table-design">
               <Table

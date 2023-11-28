@@ -4,26 +4,33 @@ import gallery1 from "./assets/gallery1.png";
 import gallery2 from "./assets/gallery2.png";
 
 export const plansObj = {
-  Essential: {
-    id: "Essential",
-    name: "Essential",
+  Starter: {
+    id: "Starter",
+    name: "Starter",
     noOfStories: 1,
     storiesText: "1 story",
     cost: "$5",
   },
-  Pro: {
-    id: "Pro",
-    name: "Pro",
+  Dreamer: {
+    id: "Dreamer",
+    name: "Dreamer",
     noOfStories: 10,
     storiesText: "10 stories",
     cost: "$10",
   },
-  Premium: {
-    id: "Premium",
-    name: "Premium",
+  Magician: {
+    id: "Magician",
+    name: "Magician",
     noOfStories: 30,
     storiesText: "30 stories",
     cost: "$15",
+  },
+  Free: {
+    id: "Free",
+    name: "Free",
+    noOfStories: 1,
+    storiesText: "1 story",
+    cost: "$0",
   },
 };
 
