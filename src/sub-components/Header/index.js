@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ReactComponent as OcLogo } from "../../assets/svg-icons/transparentLogo.svg";
+// import { ReactComponent as OcLogo } from "../../assets/svg-icons/transparentLogo.svg";
+import logoImage from "../../assets/treehouse_no_bg.png";
 import { ReactComponent as Notification } from "../../assets/svg-icons/Notification.svg";
 import Profile from "../../assets/svg-icons/Profile.svg";
 import "./header.css";
@@ -9,6 +10,7 @@ import {
   DETAIL_STORY_URL,
   EDIT_STORY_URL,
   LOGIN_URL,
+  PRICING_URL,
   PROFILE_URL,
   useRouter,
 } from "../../routes";
@@ -16,12 +18,16 @@ import BackArrow from "../../assets/svg-icons/back-arrow.svg";
 import { useNavigate } from "react-router";
 import { Popover } from "antd";
 import ComponentButton from "../../atoms/ComponentButton";
-import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  DollarOutlined,
+  LogoutOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { getUserInfoHook } from "../../api-hooks/user";
 
 const Header = () => {
   const router = useRouter();
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
   const { pathname } = router;
   const navigate = useNavigate();
   const onLogout = () => {
@@ -47,9 +53,15 @@ const Header = () => {
         <span>Profile</span>
       </div>
       <div
-        onClick={onLogout}
+        onClick={() => {
+          navigate(PRICING_URL);
+        }}
         className="popover-options"
       >
+        <DollarOutlined style={{ fontWeight: "bold" }} />
+        <span>Pricing</span>
+      </div>
+      <div onClick={onLogout} className="popover-options">
         <LogoutOutlined style={{ fontWeight: "bold" }} />
         <span>Logout</span>
       </div>
@@ -58,10 +70,9 @@ const Header = () => {
 
   useEffect(() => {
     getUserInfoHook((response) => {
-      setUser(response)
-    })
-
-  }, [])
+      setUser(response);
+    });
+  }, []);
 
   const getAvatarInitials = () => {
     if (user?.id) {
@@ -88,10 +99,15 @@ const Header = () => {
         {pathname !== CREATE_STORIES_URL &&
           pathname !== EDIT_STORY_URL &&
           pathname !== DETAIL_STORY_URL && (
-            <OcLogo
-              style={{ cursor: "pointer" }}
+            <img
+              src={logoImage}
               onClick={() => navigate(DASHBOARD_URL)}
+              style={{ cursor: "pointer", height: "70px" }}
             />
+            // <OcLogo
+            //   style={{ cursor: "pointer" }}
+            //   onClick={() => navigate(DASHBOARD_URL)}
+            // />
           )}
 
         {pathname === CREATE_STORIES_URL && (
@@ -137,10 +153,9 @@ const Header = () => {
       <div className="header-components">
         <Notification style={{ cursor: "pointer" }} />
         <Popover content={content} title="" trigger="click">
-        <div className="edit-profile-image-container">
-           {getAvatarInitials() }
-         
-        </div>
+          <div className="edit-profile-image-container">
+            {getAvatarInitials()}
+          </div>
           {/* <img src={Profile} style={{ cursor: "pointer" }} /> */}
         </Popover>
       </div>

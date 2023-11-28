@@ -1,5 +1,6 @@
 import React from "react";
 import { ReactComponent as OcLogo } from "../../assets/svg-icons/transparentLogo.svg";
+import logoImage from "../../assets/treehouse_no_bg.png";
 import { Button, Col, Form, Input, Row } from "antd";
 import "./AuthContainer.css";
 import ComponentInput from "../../atoms/ComponentInput";
@@ -18,7 +19,8 @@ const ForgetPasswordAuthContainer = () => {
   return (
     <div className="login-background">
       <div className="header">
-        <OcLogo />
+        {/* <OcLogo /> */}
+        <img src={logoImage} style={{ height: "70px" }} />
       </div>
       <div className="auth-container">
         <Row className="auth-container-row">
