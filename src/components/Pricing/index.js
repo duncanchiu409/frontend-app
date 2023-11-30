@@ -208,7 +208,7 @@ const Pricing = () => {
                 isActive={item?.isActive}
                 planId={item?.id}
                 onClick={onSelectPlan}
-                userPurchasedPlan={user?.subscribedPlan?.nickname}
+                userPurchasedPlan={user?.subscribedPlan?.id}
               />
             );
           })}

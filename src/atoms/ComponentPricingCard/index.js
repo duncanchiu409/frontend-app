@@ -13,7 +13,7 @@ const ComponentPricingCard = ({
   console.log("isActive", isActive);
 
   const getBackgroundColor = () => {
-    return userPurchasedPlan && userPurchasedPlan === title
+    return userPurchasedPlan && userPurchasedPlan === planId
     ? "#15B9EB"
     : "#EB1551" || "#EB1551"
   }
@@ -29,7 +29,7 @@ const ComponentPricingCard = ({
 
       <ComponentButton
         title={
-          userPurchasedPlan && userPurchasedPlan === title
+          userPurchasedPlan && userPurchasedPlan === planId
             ? "Subscribed"
             : "Upgrade" || "Buy"
         }
@@ -43,7 +43,7 @@ const ComponentPricingCard = ({
           visibility: title === "Free" ? "hidden" : "visible",
           color:  "#fff"
         }}
-        disabled={userPurchasedPlan === title}
+        disabled={userPurchasedPlan === planId}
         onClick={() => {
           if (title !== "Free") onClick(planId);
         }}
