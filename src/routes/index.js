@@ -17,6 +17,7 @@ export const PAYMENT_SUCCESS_URL = "/payment-success";
 export const RESET_PASSWORD_URL = "/reset-password";
 export const VERIFY_ACCOUNT_URL = "/verify-account";
 export const FORGOT_PASSWORD_URL = "/forgot-password";
+export const COMPLETE_SIGNUP_URL = "/complete-verification"
 
 export const TEST_JOT_FORM_URL = "/test-jot-form"
 

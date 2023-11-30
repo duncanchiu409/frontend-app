@@ -12,6 +12,7 @@ import {
   LOGIN_URL,
   PRICING_URL,
   PROFILE_URL,
+  SUBSCRIPTION_URL,
   useRouter,
 } from "../../routes";
 import BackArrow from "../../assets/svg-icons/back-arrow.svg";
@@ -54,12 +55,12 @@ const Header = () => {
       </div>
       <div
         onClick={() => {
-          navigate(PRICING_URL);
+          navigate(SUBSCRIPTION_URL);
         }}
         className="popover-options"
       >
         <DollarOutlined style={{ fontWeight: "bold" }} />
-        <span>Pricing</span>
+        <span>Subscription</span>
       </div>
       <div onClick={onLogout} className="popover-options">
         <LogoutOutlined style={{ fontWeight: "bold" }} />

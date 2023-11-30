@@ -145,7 +145,7 @@ const SignUpAuthContainer = ({ imgSrc, onFinish, title }) => {
                       width: "100%",
                       fontSize: "18px",
                       height: "54px",
-                      backgroundColor: "#0089ED",
+                      backgroundColor: "#15B9EB",
                       color: "#ffffff",
                       marginBottom: "14px",
                     }}
@@ -162,7 +162,7 @@ const SignUpAuthContainer = ({ imgSrc, onFinish, title }) => {
                 >
                   Already have an account ?{" "}
                   <Link to={LOGIN_URL}>
-                    <span style={{ color: "#0089ED", cursor: "pointer" }}>
+                    <span style={{ color: "#15B9EB", cursor: "pointer" }}>
                       Sign in
                     </span>
                   </Link>

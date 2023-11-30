@@ -13,8 +13,8 @@ export const loginHook = (values, callback) => {
       callback(response);
     })
     .catch(function (error) {
-      console.log(error);
-      callback(error);
+      console.log("Error", error);
+      callback(error?.response?.data);
     });
 };
 
@@ -32,10 +32,42 @@ export const signupHook = (values, callback) => {
       callback(response);
     })
     .catch(function (error) {
-      console.log(error);
-      callback(error);
+      console.log("Error", error);
+      callback(error?.response?.data);
     });
 };
+
+export const forgotPasswordHook = (values, callback) => {
+  const data = JSON.stringify({
+    email: values?.email,
+  });
+  api
+  .post("/users/forgot-password", data)
+  .then(function (response) {
+    callback(response?.data);
+  })
+  .catch(function (error) {
+    console.log("Error", error);
+    callback(error?.response?.data);
+  });
+}
+
+export const resetPasswordHook = (values, callback) => {
+  const data = JSON.stringify({
+    token: values?.token,
+    password: values?.password,
+    confirmPassword: values?.confirmPassword
+  });
+  api
+  .post("/users/reset-password", data)
+  .then(function (response) {
+    callback(response);
+  })
+  .catch(function (error) {
+    console.log("Error", error);
+    callback(error?.response?.data);
+  });
+}
 
 export const getUserInfoHook = (callback) => {
   api

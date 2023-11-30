@@ -16,7 +16,8 @@ import {
   FORGOT_PASSWORD_URL,
   VERIFY_ACCOUNT_URL,
   TEST_JOT_FORM_URL,
-  PAYMENT_SUCCESS_URL
+  PAYMENT_SUCCESS_URL,
+  COMPLETE_SIGNUP_URL
 } from "./routes";
 import Auth from "./sub-components/Auth";
 import Home from "./components/Home";
@@ -34,6 +35,7 @@ import ActionVerficationAuthContainer from "./sub-components/AuthContainer/Accou
 
 import JotFormTest from "./components/JotFormTest";
 import PaymentsSuccess from "./components/Pricing/PaymentsSuccess";
+import SignUpCompletionAuthContainer from "./sub-components/AuthContainer/SignUpCompletionAuthContainer";
 
 function App() {
   return (
@@ -51,7 +53,7 @@ function App() {
         <Route
           path={LOGIN_URL}
           element={
-            <Auth allow="$unauthenticated" redirectTo={LOGIN_URL}>
+            <Auth allow="$unauthenticated" redirectTo={HOME_URL}>
               <Login />
             </Auth>
           }
@@ -59,8 +61,16 @@ function App() {
         <Route
           path={SIGN_UP_URL}
           element={
-            <Auth allow="$unauthenticated" redirectTo={LOGIN_URL}>
+            <Auth allow="$unauthenticated" redirectTo={HOME_URL}>
               <SignUp />
+            </Auth>
+          }
+        />
+         <Route
+          path={COMPLETE_SIGNUP_URL}
+          element={
+            <Auth allow="$unauthenticated" redirectTo={HOME_URL}>
+              <SignUpCompletionAuthContainer />
             </Auth>
           }
         />

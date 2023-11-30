@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactComponent as OcLogo } from "../../assets/svg-icons/transparentLogo.svg";
 import logoImage from "../../assets/treehouse_no_bg.png";
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Col, Form, Input, Row, message } from "antd";
 import "./AuthContainer.css";
 import ComponentInput from "../../atoms/ComponentInput";
 import ComponentButton from "../../atoms/ComponentButton";
@@ -13,9 +13,30 @@ import {
   SIGN_UP_URL,
 } from "../../routes";
 import LoginSideImage from "../../assets/svg-icons/loginSideImage.svg";
+import { forgotPasswordHook } from "../../api-hooks/user";
 
 const ForgetPasswordAuthContainer = () => {
   const navigate = useNavigate();
+
+  const onFinish = (values) => {
+    console.log("forgot password", values)
+    forgotPasswordHook(values, (response) => {
+      console.log("getting response", response);
+      if (response?.message && !response?.resetPasswordLink) {
+        message.error(response?.message);
+      } else {
+    
+        if(response?.resetPasswordLink){
+          window.location.href = response?.resetPasswordLink;
+        }
+        // if (response?.data?.success) {
+        //   window.location.href = "/";
+        // }
+      }
+
+    })
+ 
+  }
   return (
     <div className="login-background">
       <div className="header">
@@ -37,7 +58,7 @@ const ForgetPasswordAuthContainer = () => {
                 Fill the form to reset your password
               </p>
               <Form
-                // onFinish={onFinish}
+                 onFinish={onFinish}
                 autoComplete="off"
                 initialValues={{ remember: true }}
                 style={{ maxWidth: "451px" }}
@@ -45,6 +66,7 @@ const ForgetPasswordAuthContainer = () => {
               >
                 <Form.Item
                   label="Enter your Email address"
+                  name="email"
                   rules={[
                     {
                       required: true,
@@ -63,19 +85,19 @@ const ForgetPasswordAuthContainer = () => {
                 </Form.Item>
                 <Form.Item>
                   <ComponentButton
-                    title={"Send Reset Link"}
+                    title={"Reset Password"}
                     style={{
                       width: "100%",
                       fontSize: "18px",
                       height: "54px",
-                      backgroundColor: "#0089ED",
+                      backgroundColor: "#15B9EB",
                       color: "#ffffff",
                     }}
                     type="submit"
                     htmlType="submit"
-                    onClick={() => {
-                      navigate(RESET_PASSWORD_URL);
-                    }}
+                    // onClick={() => {
+                    //   navigate(RESET_PASSWORD_URL);
+                    // }}
                   />
                 </Form.Item>
                 <div
@@ -87,7 +109,7 @@ const ForgetPasswordAuthContainer = () => {
                 >
                   Return To{" "}
                   <Link to={LOGIN_URL}>
-                    <span style={{ color: "#0089ED", cursor: "pointer" }}>
+                    <span style={{ color: "#15B9EB", cursor: "pointer" }}>
                       Sign In
                     </span>
                   </Link>

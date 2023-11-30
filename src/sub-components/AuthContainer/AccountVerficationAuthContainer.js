@@ -52,7 +52,7 @@ const ActionVerficationAuthContainer = () => {
                 >
                   Return To{" "}
                   <Link to={LOGIN_URL}>
-                    <span style={{ color: "#0089ED", cursor: "pointer" }}>
+                    <span style={{ color: "#15B9EB", cursor: "pointer" }}>
                       Sign In
                     </span>
                   </Link>

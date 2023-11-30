@@ -11,12 +11,13 @@ import {
   DETAIL_STORY_URL,
   EDIT_STORY_URL,
   GALLERY_URL,
+  PROFILE_URL,
   SUBSCRIPTION_URL,
   useRouter,
 } from "../../routes";
 import { useNavigate } from "react-router";
 import CreateStorySidebar from "../CreateStorySidebar";
-import { PlusOutlined } from "@ant-design/icons";
+import { DollarOutlined, PlusOutlined, UserOutlined } from "@ant-design/icons";
 
 const Sidebar = (props) => {
   const router = useRouter();
@@ -56,7 +57,7 @@ const Sidebar = (props) => {
                 navigate(DASHBOARD_URL);
               }}
             >
-              <img src={MyStoriesIcon} alt="my-stories" />
+              <img src={MyStoriesIcon} alt="my-stories" style={{width:"16px"}}/>
               <span>My Stories</span>
             </div>
             {/* <div
@@ -72,12 +73,24 @@ const Sidebar = (props) => {
             <Divider style={{ marginTop: "0", marginBottom: "5px" }} />
             <div
               className="sidebar-item"
+              style={getIsSelectedStyle(PROFILE_URL)}
+              onClick={() => {
+                navigate(PROFILE_URL);
+              }}
+            >
+              <UserOutlined style={{ fontWeight: "bold" }}/>
+              {/* <img src={SubscriptionIcon} alt="subscription" /> */}
+              <span>Profile</span>
+            </div>
+            <div
+              className="sidebar-item"
               style={getIsSelectedStyle(SUBSCRIPTION_URL)}
               onClick={() => {
                 navigate(SUBSCRIPTION_URL);
               }}
             >
-              <img src={SubscriptionIcon} alt="subscription" />
+              <DollarOutlined style={{ fontWeight: "bold" }}/>
+              {/* <img src={SubscriptionIcon} alt="subscription" /> */}
               <span>Subscription</span>
             </div>
           </div>

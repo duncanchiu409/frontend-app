@@ -70,18 +70,21 @@ const Profile = () => {
           <h6>Profile</h6>
           <h3>Edit your profile</h3>
           <div className="profile-form" style={{ marginTop: "32px" }}>
-            <Form style={{ maxWidth: "calc(100% - 220px)", width: "100%" }} form={form} onFinish={onFinish}>
+            <Form style={{ maxWidth: "calc(100% - 220px)", width: "100%" }} form={form} onFinish={onFinish} layout="vertical">
               <h6>BASIC DETAILS</h6>
               <Row gutter={16}>
                 <Col span={12}>
-                  <Form.Item name="firstName">
+                
+                  <Form.Item name="firstName" label="First name">
                     <ComponentInput placeholder="Martin"  style={{
                     width: "100%",
                   }}/>
                   </Form.Item>
+               
+                 
                 </Col>
                 <Col span={12}>
-                  <Form.Item name="lastName">
+                  <Form.Item name="lastName" label="Last name">
                     <ComponentInput
                       placeholder="Schleifer"
                       value={"Schleifer"}
@@ -89,7 +92,7 @@ const Profile = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              <Form.Item name="email">
+              <Form.Item name="email" label="E-mail">
                 <ComponentInput
                   placeholder="martinschleifer@gmail.com"
                   value={"martinschleifer@gmail.com"}
@@ -101,7 +104,7 @@ const Profile = () => {
               </Form.Item>
               <Row gutter={16}>
                 <Col span={12}>
-                  <Form.Item name="phoneNumber">
+                  <Form.Item name="phoneNumber" label="Phone number">
                     <ComponentInput
                       placeholder="+1 414 567 8764"
                      
@@ -110,7 +113,7 @@ const Profile = () => {
                   </Form.Item>
                 </Col>
                 <Col span={12}>
-                  <Form.Item name="country"> 
+                  <Form.Item name="country" label="Location "> 
                     <Select
                       allowClear
                       placeholder="Select Location"
@@ -177,7 +180,7 @@ const Profile = () => {
                       fontSize: "15px",
                       fontWeight: "700",
                       height: "48px",
-                      backgroundColor: "#2A85FF",
+                      backgroundColor: "#15B9EB",
                       color: "#FFFFFF",
                     }}
                     htmlType="submit"

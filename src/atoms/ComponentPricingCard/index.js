@@ -11,6 +11,12 @@ const ComponentPricingCard = ({
   userPurchasedPlan,
 }) => {
   console.log("isActive", isActive);
+
+  const getBackgroundColor = () => {
+    return userPurchasedPlan && userPurchasedPlan === title
+    ? "#15B9EB"
+    : "#EB1551" || "#EB1551"
+  }
   return (
     <div className={isActive ? "price-card active-price-card" : "price-card"}>
       <h4>{title}</h4>
@@ -33,8 +39,9 @@ const ComponentPricingCard = ({
           fontWeight: "700",
           height: "50px",
           marginTop: "20px",
-          backgroundColor: "#EB1551",
+          backgroundColor: getBackgroundColor(),
           visibility: title === "Free" ? "hidden" : "visible",
+          color:  "#fff"
         }}
         disabled={userPurchasedPlan === title}
         onClick={() => {

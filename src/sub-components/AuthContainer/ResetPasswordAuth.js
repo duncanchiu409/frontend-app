@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactComponent as OcLogo } from "../../assets/svg-icons/transparentLogo.svg";
 import logoImage from "../../assets/treehouse_no_bg.png";
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Col, Form, Input, Row, message } from "antd";
 import "./AuthContainer.css";
 import ComponentInput from "../../atoms/ComponentInput";
 import ComponentButton from "../../atoms/ComponentButton";
@@ -12,11 +12,38 @@ import {
   RESET_PASSWORD_URL,
   SIGN_UP_URL,
   VERIFY_ACCOUNT_URL,
+  useRouter,
 } from "../../routes";
 import LoginSideImage from "../../assets/svg-icons/loginSideImage.svg";
+import { resetPasswordHook } from "../../api-hooks/user";
 
 const ResetPasswordAuthContainer = () => {
   const navigate = useNavigate();
+
+  const router = useRouter();
+  const {query} = router
+
+  const onFinish = (values) => {
+
+    console.log("On Finsih reset password", values, query)
+    const data = {
+      password: values?.password,
+      confirmPassword: values?.confirmPassword,
+      token: query?.token
+    }
+    resetPasswordHook(data, (response) => {
+      console.log("Response", response);
+      if(response?.status === 200){
+        message.success(response?.data?.message);
+        window.location.href = "/login"
+      } else {
+        message.error(response?.message);
+      }
+     
+
+    })
+
+  }
   return (
     <div className="login-background">
       <div className="header">
@@ -38,7 +65,7 @@ const ResetPasswordAuthContainer = () => {
                 Create a new password for your account
               </p>
               <Form
-                // onFinish={onFinish}
+                 onFinish={onFinish}
                 autoComplete="off"
                 initialValues={{ remember: true }}
                 style={{ maxWidth: "451px" }}
@@ -46,6 +73,7 @@ const ResetPasswordAuthContainer = () => {
               >
                 <Form.Item
                   label="Enter your password"
+                  name="password"
                   rules={[
                     {
                       required: true,
@@ -55,6 +83,7 @@ const ResetPasswordAuthContainer = () => {
                 >
                   <Input.Password
                     placeholder="Password"
+                    
                     style={{
                       height: "48px",
                       borderRadius: "9px",
@@ -64,6 +93,7 @@ const ResetPasswordAuthContainer = () => {
                 </Form.Item>
                 <Form.Item
                   label="Confirm your password"
+                  name="confirmPassword"
                   rules={[
                     {
                       required: true,
@@ -87,14 +117,14 @@ const ResetPasswordAuthContainer = () => {
                       width: "100%",
                       fontSize: "18px",
                       height: "54px",
-                      backgroundColor: "#0089ED",
+                      backgroundColor: "#15B9EB",
                       color: "#ffffff",
                     }}
                     type="submit"
                     htmlType="submit"
-                    onClick={() => {
-                      navigate(VERIFY_ACCOUNT_URL);
-                    }}
+                    // onClick={() => {
+                    //   navigate(VERIFY_ACCOUNT_URL);
+                    // }}
                   />
                 </Form.Item>
                 <div
@@ -106,7 +136,7 @@ const ResetPasswordAuthContainer = () => {
                 >
                   Return To{" "}
                   <Link to={LOGIN_URL}>
-                    <span style={{ color: "#0089ED", cursor: "pointer" }}>
+                    <span style={{ color: "#15B9EB", cursor: "pointer" }}>
                       Sign In
                     </span>
                   </Link>

@@ -68,7 +68,7 @@ const LoginAuthContainer = ({ imgSrc, onFinish, title }) => {
                 </Form.Item>
                 <Form.Item className="forgetBtn">
                   <Link to={FORGOT_PASSWORD_URL}>
-                    <span>Forgot Password?</span>
+                    <span style={{color:"#15B9EB"}}>Forgot Password?</span>
                   </Link>
                 </Form.Item>
                 <Form.Item>
@@ -78,7 +78,7 @@ const LoginAuthContainer = ({ imgSrc, onFinish, title }) => {
                       width: "100%",
                       fontSize: "18px",
                       height: "54px",
-                      backgroundColor: "#0089ED",
+                      backgroundColor: "#15B9EB",
                       color: "#ffffff",
                     }}
                     htmlType="submit"
@@ -94,7 +94,7 @@ const LoginAuthContainer = ({ imgSrc, onFinish, title }) => {
                 >
                   No Account ?{" "}
                   <Link to={SIGN_UP_URL}>
-                    <span style={{ color: "#0089ED", cursor: "pointer" }}>
+                    <span style={{ color: "#15B9EB", cursor: "pointer" }}>
                       Sign up
                     </span>
                   </Link>

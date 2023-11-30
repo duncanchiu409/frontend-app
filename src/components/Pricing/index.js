@@ -18,6 +18,7 @@ import {
   subscribeToPlan,
 } from "../../api-hooks/user";
 import { loadStripe } from "@stripe/stripe-js";
+import MainContainer from "../../sub-components/MainContainer";
 
 const Pricing = () => {
   const [pricingPlans, setPricingPlans] = useState([]);
@@ -47,45 +48,45 @@ const Pricing = () => {
               let priceContentData = [];
               if (item?.nickname === "Free") {
                 priceContentData = [
-                  "1 book",
-                  "choose from 6 unique illustration styles",
-                  "create personalized characters",
-                  "customized story themes",
+                  "1 book/month",
+                  "Choose from 6 unique illustration styles",
+                  "Create personalized characters",
+                  "Customized story themes",
                   "10 pages",
                   "",
                 ];
               } else if (item?.nickname === "Starter") {
                 priceContentData = [
-                  "1 book",
-                  "choose from 6 unique illustration styles",
-                  "create personalized characters",
-                  "customized story themes",
+                  "1 book/month",
+                  "Choose from 6 unique illustration styles",
+                  "Create personalized characters",
+                  "Customized story themes",
                   "10 pages",
-                  "download to PDF",
+                  "Download to PDF",
                 ];
               } else if (item?.nickname === "Dreamer") {
                 priceContentData = [
-                  "10 books",
-                  "choose from 6 unique illustration styles",
-                  "create personalized characters",
-                  "customized story themes",
+                  "10 books/month",
+                  "Choose from 6 unique illustration styles",
+                  "Create personalized characters",
+                  "Customized story themes",
                   "10 pages",
-                  "download to PDF",
+                  "Download to PDF",
                 ];
               } else if (item?.nickname === "Magician") {
                 priceContentData = [
-                  "30 books",
-                  "choose from 6 unique illustration styles",
-                  "create personalized characters",
-                  "customized story themes",
+                  "30 books/month",
+                  "Choose from 6 unique illustration styles",
+                  "Create personalized characters",
+                  "Customized story themes",
                   "10 pages",
-                  "download to PDF",
+                  "Download to PDF",
                 ];
               }
               list.push({
                 id: item?.id,
                 title: item?.nickname,
-                price: `$${item?.amount / 100}`,
+                price: `US$${item?.amount / 100}`,
                 priceAmount: item?.amount,
                 isActive: false,
                 priceContent: [
@@ -105,44 +106,44 @@ const Pricing = () => {
               if (item?.nickname === "Free") {
                 priceContentData = [
                   "1 book",
-                  "choose from 6 unique illustration styles",
-                  "create personalized characters",
-                  "customized story themes",
+                  "Choose from 6 unique illustration styles",
+                  "Create personalized characters",
+                  "Customized story themes",
                   "10 pages",
                   "",
                 ];
               } else if (item?.nickname === "Starter") {
                 priceContentData = [
                   "1 book",
-                  "choose from 6 unique illustration styles",
-                  "create personalized characters",
-                  "customized story themes",
+                  "Choose from 6 unique illustration styles",
+                  "Create personalized characters",
+                  "Customized story themes",
                   "10 pages",
-                  "download to PDF",
+                  "Download to PDF",
                 ];
               } else if (item?.nickname === "Dreamer") {
                 priceContentData = [
                   "10 books",
-                  "choose from 6 unique illustration styles",
-                  "create personalized characters",
-                  "customized story themes",
+                  "Choose from 6 unique illustration styles",
+                  "Create personalized characters",
+                  "Customized story themes",
                   "10 pages",
-                  "download to PDF",
+                  "Download to PDF",
                 ];
               } else if (item?.nickname === "Magician") {
                 priceContentData = [
                   "30 books",
-                  "choose from 6 unique illustration styles",
-                  "create personalized characters",
-                  "customized story themes",
+                  "Choose from 6 unique illustration styles",
+                  "Create personalized characters",
+                  "Customized story themes",
                   "10 pages",
-                  "download to PDF",
+                  "Download to PDF",
                 ];
               }
               list.push({
                 id: item?.id,
                 title: item?.nickname,
-                price: `$${item?.amount / 100}`,
+                price: `US$${item?.amount / 100}`,
                 priceAmount: item?.amount,
                 isActive: false,
                 priceContent: [
@@ -180,59 +181,8 @@ const Pricing = () => {
   console.log("Login User", user);
   return (
     <div>
-      <Header />
-      {/* <div
-        className="price-header"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "30px" }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              cursor: "pointer",
-            }}
-          >
-            <PhoneOutlined />
-            <span>+000 - 123 - 456789</span>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              cursor: "pointer",
-            }}
-          >
-            <MailOutlined />
-            <span>info@example.com</span>
-          </div>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <span>Follow Us:</span>
-          <div
-            style={{ display: "flex", alignItems: "center", gap: "10px" }}
-            className="social-icons"
-          >
-            <div>
-              <FacebookOutlined />
-            </div>
-            <div>
-              <TwitterOutlined />
-            </div>
-            <div>
-              <InstagramOutlined />
-            </div>
-          </div>
-        </div>
-      </div> */}
-      {/* <div style={{ marginTop: "60px" }}></div> */}
-      <div className="pricing-body">
+<MainContainer>
+<div className="pricing-body">
         <div className="float-vector1">
           <img src={FloatVector1} alt="float vector" />
         </div>
@@ -240,10 +190,10 @@ const Pricing = () => {
           <img src={FloatVector2} alt="float vector" />
         </div>
         <div style={{ textAlign: "center" }}>
-          <h6>Pricing</h6>
+          {/* <h6>Pricing</h6> */}
           <h3>Choose your plan</h3>
           <div className="pricing-switch">
-            <p>Pay Monthly</p>
+            <p>Monthly</p>
             <Switch checked={isYearly} onChange={onChange} />
             <p>Yearly</p>
           </div>
@@ -264,6 +214,8 @@ const Pricing = () => {
           })}
         </div>
       </div>
+</MainContainer>
+    
     </div>
   );
 };
