@@ -28,6 +28,7 @@ const CreateStorySidebar = (props) => {
       name: "Cartoon",
       imageSrc: SelectSample2,
       isChecked: false,
+      disabled: true
     },
     {
       id: 3,
@@ -52,6 +53,7 @@ const CreateStorySidebar = (props) => {
       name: "Comic",
       imageSrc: SelectSample6,
       isChecked: false,
+      disabled: true
     },
     {
       id: 7,
@@ -474,7 +476,10 @@ const CreateStorySidebar = (props) => {
                   cursor: "pointer",
                 }}
                 onClick={() => {
-                  handleChecked(item?.id);
+                  if(!item?.disabled){
+                    handleChecked(item?.id);
+                  }
+                 
                 }}
               >
                   
@@ -482,6 +487,7 @@ const CreateStorySidebar = (props) => {
                   <img
                     src={item?.imageSrc}
                     className="select-comic-style-image"
+                    style={{filter: item?.disabled ?"grayscale(100%)": "none"}}
                   />
                   {item?.isChecked && (
                     <div className="story-check-illustration-style">
@@ -489,6 +495,13 @@ const CreateStorySidebar = (props) => {
                       style={{ fontSize: "22px", color: "#EB1551" }}
                       className="checkedFilled"
                     />
+                    </div>
+                  
+                  )}
+                  {item?.disabled && (
+                    <div className="story-check-illustration-style" style={{background:"unset", display:"flex", alignItems:"center", justifyContent:"center"}}>
+                      <div className="coming-soon-text"> Coming Soon</div>
+                       
                     </div>
                   
                   )}

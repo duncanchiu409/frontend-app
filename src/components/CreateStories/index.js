@@ -149,6 +149,7 @@ const CreateStories = ({ type }) => {
           const progresbarValue = Math.ceil(
             (response.data.current_step / response.data.total_steps) * 100
           );
+          console.log("Progress bart value", progresbarValue, )
           if (progresbarValue === 100) {
             setDownloadLink(response.data.pdf_path);
             setDownloadData(response.data);
@@ -165,7 +166,7 @@ const CreateStories = ({ type }) => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (progressBarValue && progressBarValue !== 100 && storyId) {
+      if (progressBarValue && progressBarValue !== 100 && storyId && progressStepText !== "Failed") {
         console.log("progressBarValue", progressBarValue, storyId);
         getCalculatedProgressData(storyId);
       } else {
