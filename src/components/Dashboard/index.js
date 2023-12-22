@@ -13,7 +13,7 @@ import { useNavigate } from "react-router";
 import { CREATE_STORIES_URL } from "../../routes";
 import PageTitle from "../../sub-components/PageTitle";
 import { Link } from "react-router-dom";
-import { getBooksCreatedByUser, getUserInfoHook } from "../../api-hooks/user";
+import { getBooksCreatedByUser, getUserInfoHook, downloadHook } from "../../api-hooks/user";
 import { formatDate } from "../../dataHelper";
 
 const Dashboard = () => {
@@ -31,6 +31,17 @@ const Dashboard = () => {
       }
     });
   }, []);
+
+  const downloadBook = async sessionId => {
+    downloadHook(sessionId, (response) => {
+      const link = document.createElement('a');
+      link.href = response;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    })
+  }
+
   return (
     <MainContainer style={{ padding: 0 }}>
       <div>
@@ -53,7 +64,7 @@ const Dashboard = () => {
             storiesList?.map((story) => {
               return (
                 <Col span={5} style={{ marginRight: "16px" }}>
-                  <a href={story?.pdf_url} download="Story" target="_blank">
+                  <a href='#' onClick={() => downloadBook(story.session_id)}>
                     <CardTemplate
                       imageSrc={story?.image}
                       cardContent={story?.title}

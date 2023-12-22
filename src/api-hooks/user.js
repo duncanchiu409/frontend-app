@@ -216,6 +216,24 @@ export const getBooksCreatedByUser = (userId, callback) => {
     callback(response?.data);
   });
 };
+
+export const downloadHook = (sessionId, callback) => {
+  const token = localStorage.getItem("authToken");
+  let getDownloadLink = {
+    method: "get",
+    maxBodyLength: Infinity,
+    url: `${process.env.REACT_APP_PY_API}/book/download?session_id=${sessionId}`,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  axios.request(getDownloadLink).then((response) => {
+    console.log("Total Books Created", response);
+    callback(response?.data);
+  });
+};
 // subscribeToPlan = (planId) => {
 //   return this.httpClient.post(
 //     `${environment.apiurl}/payments/createStripeSession`,
