@@ -10,7 +10,7 @@ import TabImg4 from "../../assets/svg-icons/tabImg4.svg";
 import { Progress, message } from "antd";
 import axios from "axios";
 import DownloadScreenImage from "../../assets/svg-icons/download-screen-image.svg";
-import { getBooksCreated, getUserInfoHook } from "../../api-hooks/user";
+import { getBooksCreated, getUserInfoHook, downloadHook } from "../../api-hooks/user";
 import { plansObj } from "../../dataHelper";
 import { useNavigate } from "react-router";
 import { PRICING_URL } from "../../routes";
@@ -73,6 +73,9 @@ const CreateStories = ({ type }) => {
 
   const generateStory = (values) => {
     console.log("printing the values", values, user?.id);
+    if(progressStepText == "Failed"){
+      setIsGenerateClicked(false)
+    }
 
     if (!isGenerateClicked) {
       getBooksCreated(user?.id, (totalBookUsedResponse) => {
@@ -149,7 +152,7 @@ const CreateStories = ({ type }) => {
           const progresbarValue = Math.ceil(
             (response.data.current_step / response.data.total_steps) * 100
           );
-          console.log("Progress bart value", progresbarValue, )
+          console.log("Progress bart value", progresbarValue,)
           if (progresbarValue === 100) {
             setDownloadLink(response.data.pdf_path);
             setDownloadData(response.data);
@@ -166,7 +169,7 @@ const CreateStories = ({ type }) => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (progressBarValue && progressBarValue !== 100 && storyId && progressStepText !== "Failed") {
+      if (progressBarValue && progressBarValue !== 100 && storyId && progressStepText != "Failed") {
         console.log("progressBarValue", progressBarValue, storyId);
         getCalculatedProgressData(storyId);
       } else {
@@ -182,6 +185,16 @@ const CreateStories = ({ type }) => {
     };
   }, [storyId, progressBarValue]);
 
+  const downloadBook = async sessionId => {
+    downloadHook(sessionId, (response) => {
+      const link = document.createElement('a');
+      link.href = response;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    })
+  }
+
   console.log("storyId", storyId);
   return (
     <div className="create-stry-container">
@@ -192,18 +205,17 @@ const CreateStories = ({ type }) => {
               <div className="stry-header">
                 {/* <img src={ShareBtn} style={{ cursor: "pointer" }} /> */}
                 {downloadLink && (
-                  <a href={downloadLink} download="Story" target="_blank">
-                    <ComponentButton
-                      title={"Download"}
-                      style={{
-                        width: "120px",
-                        borderRadius: "10px",
-                        fontSize: "12px",
-                        height: "38px",
-                        backgroundColor: "#EB1551",
-                      }}
-                    />
-                  </a>
+                  <ComponentButton
+                    title={"Download"}
+                    style={{
+                      width: "120px",
+                      borderRadius: "10px",
+                      fontSize: "12px",
+                      height: "38px",
+                      backgroundColor: "#EB1551",
+                    }}
+                    onClick={() => downloadBook(storyId)}
+                  />
                 )}
               </div>
               <div className="stry-content">
@@ -278,7 +290,6 @@ const CreateStories = ({ type }) => {
                             style={{ maxWidth: "200px" }}
                           />
                         </div>
-                        <a href={downloadLink} download="Story" target="_blank">
                           <ComponentButton
                             title={"Download"}
                             style={{
@@ -288,8 +299,8 @@ const CreateStories = ({ type }) => {
                               height: "38px",
                               backgroundColor: "#EB1551",
                             }}
+                            onClick={() => downloadBook(storyId)}
                           />
-                        </a>
                       </div>
                     )}
                   </div>
