@@ -166,7 +166,7 @@ const CreateStories = ({ type }) => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (progressBarValue && progressBarValue !== 100 && storyId && progressStepText !== "Failed") {
+      if (progressBarValue && progressBarValue !== 100 && storyId && progressStepText != "Failed") {
         console.log("progressBarValue", progressBarValue, storyId);
         getCalculatedProgressData(storyId);
       } else {
