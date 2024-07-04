@@ -73,6 +73,9 @@ const CreateStories = ({ type }) => {
 
   const generateStory = (values) => {
     console.log("printing the values", values, user?.id);
+    if(progressStepText == "Failed"){
+      setIsGenerateClicked(false)
+    }
 
     if (!isGenerateClicked) {
       getBooksCreated(user?.id, (totalBookUsedResponse) => {
