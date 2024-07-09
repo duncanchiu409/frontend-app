@@ -73,7 +73,7 @@ const CreateStories = ({ type }) => {
 
   const generateStory = (values) => {
     console.log("printing the values", values, user?.id);
-    if(progressStepText == "Failed"){
+    if (progressStepText == "Failed") {
       setIsGenerateClicked(false)
     }
 
@@ -217,6 +217,21 @@ const CreateStories = ({ type }) => {
                     onClick={() => downloadBook(storyId)}
                   />
                 )}
+                {progressStepText == 'Failed' && (
+                  <div>
+                    <ComponentButton
+                      title={"Retry"}
+                      style={{
+                        width: "120px",
+                        borderRadius: "10px",
+                        fontSize: "12px",
+                        height: "38px",
+                        backgroundColor: "#EB1551",
+                      }}
+                      onClick={generateStory}
+                    />
+                  </div>
+                )}
               </div>
               <div className="stry-content">
                 {(generateStry || type === "detail" || type === "edit") && (
@@ -290,17 +305,17 @@ const CreateStories = ({ type }) => {
                             style={{ maxWidth: "200px" }}
                           />
                         </div>
-                          <ComponentButton
-                            title={"Download"}
-                            style={{
-                              width: "120px",
-                              borderRadius: "10px",
-                              fontSize: "12px",
-                              height: "38px",
-                              backgroundColor: "#EB1551",
-                            }}
-                            onClick={() => downloadBook(storyId)}
-                          />
+                        <ComponentButton
+                          title={"Download"}
+                          style={{
+                            width: "120px",
+                            borderRadius: "10px",
+                            fontSize: "12px",
+                            height: "38px",
+                            backgroundColor: "#EB1551",
+                          }}
+                          onClick={() => downloadBook(storyId)}
+                        />
                       </div>
                     )}
                   </div>
