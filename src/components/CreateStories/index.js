@@ -269,7 +269,7 @@ const CreateStories = ({ type }) => {
                               height: "38px",
                               backgroundColor: "#EB1551",
                             }}
-                            onClick={() => console.log('Button Clicked')}
+                            onClick={generateStory}
                           />
                         </div>
                       </div>
