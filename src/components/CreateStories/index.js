@@ -259,6 +259,19 @@ const CreateStories = ({ type }) => {
                         >
                           {progressStepText}
                         </div>
+                        <div style={{ display: "flex", justifyContent: 'center', marginTop: '16px' }}>
+                          <ComponentButton
+                            title={"Retry"}
+                            style={{
+                              width: "120px",
+                              borderRadius: "10px",
+                              fontSize: "12px",
+                              height: "38px",
+                              backgroundColor: "#EB1551",
+                            }}
+                            onClick={() => console.log('Button Clicked')}
+                          />
+                        </div>
                       </div>
                     )}
                     {downloadLink && (
