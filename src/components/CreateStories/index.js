@@ -259,7 +259,7 @@ const CreateStories = ({ type }) => {
                         >
                           {progressStepText}
                         </div>
-                        <div style={{ display: "flex", justifyContent: 'center', marginTop: '16px' }}>
+                        {progressBarStatus == 'Failed' && <div style={{ display: "flex", justifyContent: 'center', marginTop: '16px' }}>
                           <ComponentButton
                             title={"Retry"}
                             style={{
@@ -271,7 +271,7 @@ const CreateStories = ({ type }) => {
                             }}
                             onClick={generateStory}
                           />
-                        </div>
+                        </div>}
                       </div>
                     )}
                     {downloadLink && (
