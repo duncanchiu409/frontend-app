@@ -259,7 +259,7 @@ const CreateStories = ({ type }) => {
                         >
                           {progressStepText}
                         </div>
-                        {progressBarStatus == 'Failed' && <div style={{ display: "flex", justifyContent: 'center', marginTop: '16px' }}>
+                        {progressStepText == 'Failed' && <div style={{ display: "flex", justifyContent: 'center', marginTop: '16px' }}>
                           <ComponentButton
                             title={"Retry"}
                             style={{
